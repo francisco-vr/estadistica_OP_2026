@@ -4,7 +4,7 @@
     <title>Clase : Mètodos cuantitativos para Opinión pública</title>
     <meta charset="utf-8" />
     <meta name="author" content="Francisco Villarroel Riquelme" />
-    <meta name="date" content="2026-03-08" />
+    <meta name="date" content="2026-03-09" />
     <script src="clase2_files/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -290,7 +290,7 @@ background-size: 150px
 background-position: 97% 97%
 class:left, middle
 
-## Ejemplo: encuesta a estudiantes de perriodismo
+## Ejemplo: encuesta a estudiantes de periodismo
 
 - Se le quiere hacer una encuesta aestudiantes de periodismo sobre su alfabetización digital y pertenencia a cámaras de eco.
 - Se sabe que hay 7600 estudiantes de periodismo en Chile
@@ -298,8 +298,34 @@ class:left, middle
 
 --
 
-`$$n= \frac{7600 * 1.96^2* 0.5 *(1-0.5)}{0.05^2(7600 - 1) + 1.96^* 0.5(1-0.5)}$$`
+`$$n= \frac{7600 * 1.96^2* 0.5 *(1-0.5)}{0.05^2(7600 - 1) + 1.96^2* 0.5(1-0.5)}$$`
+--
+
+`$$n= \frac{7600 * 3.84 * 0.5 *0.5}{0.0025* 7599 + 3.84 * 0.25}$$`
+--
+
+
+`$$n= \frac{29.184 * 0.5 *0.5}{18,997 + 0.96}$$`
+--
+
+`$$n= \frac{7296}{19.95} =&gt; n= 365.71$$`
 ---
+background-image: url(clase2_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class:left, middle
+
+
+## Ejercicio:
+
+- Se requiere hacer una encuesta a deportistas y funcionarios de IND y del deporte de alto rendimiento (n = 2700). Suponga que puede acceder a ellos sin problema.
+- ¿Cuántas personas necesito encuestar para obtener una muestra representativa bajo muestreo aleatorio simple?
+
+
+Recuerde la fórmula:
+
+
+`$$n= \frac{N * Z^2* p *(1-p)}{E^2(N - 1) + Z^2p(1-p)}$$`
 
 
 ---
@@ -323,20 +349,9 @@ class:left, middle
 .pull-right[
 
 
-&lt;img src="https://www.researchgate.net/profile/Carlos-Manterola-2/publication/316298141/figure/fig7/AS:506944012996608@1497876279047/Muestreo-por-conglomerados-Se-seleccionan-al-azar-una-muestra-de-4-consultorios-de-salud.png" width="80%" style="display: block; margin: auto;" /&gt;
-
+&lt;img src="clase2_files/Distrito 13-G.jpg" width="40%" style="display: block; margin: auto;" /&gt;
 
 ]
-
----
-background-image: url(clase2_files/Comunicaciones_udd.png)
-background-size: 150px
-background-position: 97% 97%
-class:left, middle
-
-## Ejemplo: conglomerados para encuesta en las condes
-
-estimación: 2100 manzanas en las condes, repartidas en 16 unidades vecinales.
 
 ---
 background-image: url(clase2_files/Comunicaciones_udd.png)
@@ -361,6 +376,70 @@ class:left, middle
 &lt;img src="https://previews.123rf.com/images/normaals/normaals2003/normaals200300018/143533638-ejemplo-de-muestreo-estratificado-diagrama-de-ilustraci%C3%B3n-vectorial-esquema-de-explicaci%C3%B3n-del.jpg" width="80%" style="display: block; margin: auto;" /&gt;
 
 ]
+---
+background-image: url(clase2_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, middle
+
+
+
+## Ejemplo: empleo estratíficado en deportistas y funcionarios IND
+
+- Ya sabemos que tenemos 2700 trabajadores, pero también sabemos que la proporción por sexo es 67% hombres y 33% mujeres.
+- La encuesta puede ser sensible al género puedes hay razones para pensar que tienen problemáticas diferentes
+
+
+¿Cuántas personas necesito considerando esto?
+
+---
+background-image: url(clase2_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, middle
+
+fórmula:
+
+$$ n_h = \frac{N_h}{N} * n $$
+
+`\(n_h\)` = Tamaño de la muestra del estrato h
+
+`\(N_j\)` = Tamaño de la población del estrato h
+
+`\(N\)` = Tamaño población total
+
+`\(n\)` = Tamaño de la muestra total
+
+---
+class: left, middle
+
+
+
+`$$n_h = \frac{891}{2700}*366$$`
+--
+
+`$$n_h = 0.33 * 366 =&gt; n_h = 121$$`
+
+--
+
+Para el resto es simplemente `\(366 - 121 = 245\)`
+
+-- 
+
+Entonces:
+
+n de mujeres que deben ser encuestadas: 121
+n de hombres que deben ser encuestados: 245
+
+---
+background-image: url(clase2_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class:inverse, left, middle
+
+
+## Muestreo no probabilísticos
+
 
 ---
 background-image: url(clase2_files/Comunicaciones_udd.png)
@@ -393,6 +472,16 @@ class: left, middle
 - Participantes entran en bas ea incentivos económicos
 - Investigadores aplican cuotas internas para que panel sea más ajustado a población
 - Problemas: autoselección
+
+---
+background-image: url(clase2_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, middle
+
+
+&lt;img src="clase2_files/metodología_cadem.png" width="90%" style="display: block; margin: auto;" /&gt;
+
 
 ---
 background-image: url(clase2_files/Comunicaciones_udd.png)
@@ -439,6 +528,8 @@ El  chakra viene de [remark.js](https://remarkjs.com), [**knitr**](https://yihui
 Este slide fue creado por [**xaringan**](https://github.com/yihui/xaringan) y [**XaringanThemer**](https://pkg.garrickadenbuie.com/xaringanthemer/index.html)
 
 ---
+class: left, middle
+
 
 
 Ah, y la respuesta es **875 corchos**
