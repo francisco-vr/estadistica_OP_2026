@@ -108,7 +108,7 @@ class: left, top
 
 
 ---
-background-image: url(clase8_files/Comunicaciones_udd.png)
+background-image: url(clase2_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -124,7 +124,7 @@ class: left, top
 
 
 ---
-background-image: url(clase8_files/Comunicaciones_udd.png)
+background-image: url(clase2_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -141,7 +141,7 @@ class: left, top
 - Las variables cuantitativas se dividen en variables de razon (números con decimales) y numéricas discretas (números enteros)
 
 ---
-background-image: url(clase8_files/Comunicaciones_udd.png)
+background-image: url(clase2_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
