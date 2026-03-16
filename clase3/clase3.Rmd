@@ -1,0 +1,659 @@
+---
+title: "Clase 8: Mètodos cuantitativos para Opinión pública"
+author: 
+  - "Francisco Villarroel Riquelme"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+      countdown: 180000
+    seal: false
+    
+---
+class:center, middle, bg_karl
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = FALSE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(knitr)
+library(xaringanthemer)
+style_duo_accent(
+  primary_color = "#b01333",
+  secondary_color = "#085e9f",
+  inverse_header_color = "#FFFFFF"
+)
+```
+```{css, echo=F}
+h1, h2, h3 {
+  text-align: center;
+}
+```
+
+
+
+```{css, echo = F}
+
+.reduced_opacity {
+  opacity: 0.05;
+}
+
+
+.bg_karl {
+  position: relative;
+  z-index: 1;
+}
+.bg_karl::before {    
+      content: "";
+      background-image: url('https://www.pewresearch.org/wp-content/uploads/2022/10/3-header_howPollingWorks.jpg');
+      background-size: cover;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.1;
+      z-index: -1;
+}
+```
+
+## Análisis estadístico y opinión Pública
+### Clase 8: Introducción a la estadística descriptiva
+#### Frecuencias, porcentajes, medidas de tendencia central
+
+<br>
+
+#### Francisco Villarroel Riquelme (CICS- UDD) 
+#### 
+
+
+<br>
+<br>
+<br>
+<br>
+```{r, echo=FALSE, message = FALSE, out.width="30%", fig.align='center'}
+knitr::include_graphics("clase3_files/Comunicaciones_udd.png")
+```
+
+---
+background-image: url(clase3_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+
+# ¿Qué veremos hoy?
+
+- Conoceremos la diferencia entre estadística descriptiva e inferencial
+- Observaremos los computos bàsicos de la estadística descriptiva: frecuencias, porcentajes y medidas de tendencia central
+
+---
+background-image: url(clase3_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, middle
+
+## Repaso: Muestras
+
+- Población (cantidad total de personas sujeto de ivnestigación) y muestra (subgrupo que se accede para estudiar un fenómeno)
+- Para saber cuánta muestra necesito, debo considerar nivel de confianza y error de muestra
+- **El nivel de confianza** es el cálculo probabilístico sobre si la muestra es representativa o no
+- **El error de muestreo** es el error de estimaciòn admisible desde la muestra hacia la población
+
+--
+
+El muestreo más conocido es el _muestreo aleatorio simple_, donde todos tienen la misma probabilidad de ser elegidos.
+
+--
+
+Otros muestreos probabilísticos importantes: por conglomerado (niveles geográficos diferentes) y muestreo estratificado (variables sociales diferentes)
+
+---
+background-image: url(clase3_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: inverse, center, middle
+
+## Estadística descriptiva
+
+---
+background-image: url(clase3_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, middle
+
+## Estadística descriptiva != Inferencial
+
+--
+
+| Descriptiva                                                     |     Inferencial                                                         |
+|-----------------------------------------------------------------|-------------------------------------------------------------------------|
+|Permite resumir y describir características básicas de los datos | Permite deducir características de la población                         |
+| Permite una comprensiónn inicial de características y patrones  | Permite predecir, inferir diferencias, generalizar, evaluar hipótesis   |
+| Medidas básicas: Tendencia central, dispersión y posición       | Medidad básicas: Intervalos de confianza, diferencia entre grupos, regresiones           |
+
+--
+
+**La visualización de datos también es un mecanismo descriptivo**
+
+
+---
+background-image: url(clase3_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class:left, top
+
+## Niveles de análisis
+
+<br>
+
+--
+
+1. **Estadística univariada:** Revisar la forma, características y patrones de una sola variable.
+
+--
+
+2. **Estadística Bivariada:** Analizar el comportamiento de una variable dependiente $Y$ con una independiente $X$
+
+--
+
+3. **Estadística multivariada:** Analizar el comoprtamiento de una variable dependiente $Y$ con más de una variable independeiente $X_1, X_2, ...,X_n$
+
+
+---
+class: inverse, center, middle
+
+## Estadística descriptiva
+
+
+---
+
+```{r, out.width="60%", fig.align='center'}
+
+knitr::include_graphics("clase3_files/diagrama_estadistica_descriptiva.jpg")
+
+```
+
+
+---
+background-image: url(clase3_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+## Frecuencias y porcentajes
+
+--
+
+.pull-left[
+
+### Frecuencia
+
+- Conteo ordenado por cada etiqueta existente
+- Para variables cualitativas, lo primero que hacemos es observar cuántas hay de cada categoría
+- Puede sonar básico, pero es lo primero que se hace y a veces se encuentran sorpresas (resultados no esperados)
+- Ayuda a evaluar si hay errores de datos (Variables que en alguna categoría no tienen a nadie son .. sospechosas)
+
+
+]
+
+
+.pull-right[
+
+### Porcentajes:
+
+- A veces el conteo no dice mucho
+- El porcentaje entrega más información porque es referencial del grupo (ej: categoría "mujeres" respecto de "Hombres")
+- Fórmula de cálculo: cantidad de conteos de una categoría dividida por la cantidad de observaciones totales * 100
+
+
+]
+
+---
+background-image: url(clase3_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+
+### Tasa
+
+- Medición de frecuencia para observar un evento de interés en torno a la población general
+- Utilizado en epidemiología.
+- Habitualmente se usan múltiplos de mil para comparar
+
+
+ej: 200 de cada 1000 niños tienen una enfermedad respiratoria antes del año
+ej: 4 de cada 10 personas aprueba al presidente José Antonio Kast
+ej: La tasa de mortalidad en Chile en 2022 fue de 7,2 muertes por cada mil habitantes (7,2‰)
+
+
+
+---
+Ejercicio asistido:
+
+De la muestra obtenida, 36 personas creen que estamos siendo vigilados por agencias gubernamentales.
+
+Cuál es el porcentaje y la tasa? son 95 casosa válidos.
+
+
+
+
+---
+Ejercicio:
+
+De la encuesta realizada, 19 personas creen que es bueno/muy bueno tener un líder fuerte que no le importe ni el congreso ni elecciones.
+
+Calcule su porcentaje y tasa cada 10 personas. El total de datos válidos es 95
+
+
+
+---
+class: inverse, middle, center
+
+
+### Estadística descriptiva para variables cuantitativas
+
+
+---
+background-image: url(clase3_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+
+## Media 
+
+.pull-left[
+
+- Estadístico de tendencia central más útil para variables cuantitativas
+- Es sencillo de computar y comprender
+- Desventaja: es muy sencible en variables con valores extremos (no tienen distribución normal)
+- Valores extremos pueden hacer "bajar" o "subir" la media
+- Es importante computar sólo casos válidos
+
+]
+
+
+.pull-right[
+
+### Se calcula mediante:
+
+$$ \overline{X} = \frac{\sum{X}}{n} $$
+donde:
+
+$\overline{X}$ = Media o promedio de variable X
+<br>
+$\sum{X}$ = Suma de todos los valores de X
+<br>
+$n$ = número de observaciones
+
+]
+
+---
+background-image: url(clase3_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+
+## Mediana 
+
+.pull-left[
+
+- Es, por definición, el valor que corta la mitad una muestra
+- Es una medida mucho menos sensible a valores extremos a diferencia de la media
+- Pero es sensible a cambios de cantidad de observaciones
+- Es una buena medida cuando la distribución no es normal o hay otros sesgos
+ 
+]
+
+
+.pull-right[
+
+### Forma de calcular:
+
+1. Se ordena de menor a mayor todos los valores de la variable
+2. El número de valores existentes se divide en dos
+3. La mediana es el que divide la muestra a la mitad (si es impar)
+4. Si la muestra es par, es la media de los dos valores límites
+
+
+]
+
+---
+background-image: url(clase3_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+
+## Moda 
+
+.pull-left[
+
+- Puntuación con mayor frecuencia dentro de una serie de observaciones de una variable
+- Es la "más popular"
+- Es un estadístico de poca utilidad
+- No sugiere mucho de los demás puntos
+ 
+]
+
+
+.pull-right[
+
+### Forma de calcular:
+
+1. Agrupa las puntuaciònes en una distribuciòn de frecuencias (contar cuántos hayd e cada valor)
+2. identificar el que màs se repite
+
+]
+---
+
+Ejercicio grupal:
+
+[163,169,173,163,160]
+
+
+
+---
+class: inverse, center, middle
+
+
+## Medidas de dispersión y posición
+
+
+---
+background-image: url(clase3_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+## ¿Qué son las medidas de dispersión?
+
+--
+
+- Así como las medida de tendencia central nos ayudan a comprender donde está la mayoría de los datos agrupados
+- Las medidas de dispersión nos ayudan a entender _qué tan separados están los datos unos de otros_
+- Las medidas de dispersión nos ayudan a entender la extensión de la distribución y mejora la comprensión de la concentración de valores
+
+
+
+---
+background-image: url(clase3_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+
+## Rango
+
+--
+
+- Son los valores máximos y mínimos que toma un conjunto de observaciones de una variable
+- Es para variables cuantitativas, y por tanto pueden tener un rango de  $-\infty$ a $\infty$
+- Su forma por sí sola da poca información. Sólo son los límites de la distyribución, _no su forma_.
+ 
+
+---
+background-image: url(clase3_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+## Desviación estandar
+
+.pull-left[
+
+- Describe _cuán lejos están las puntuaciones de una variable respecto de la media_
+- Se utiliza en variables de razón o cuantitativas contínuas
+- Permite entender, junto a la media, donde se ubica la mayoría de la distribución
+- ej: cuando señalan que un estudio tiene $\mu = 22.4$ y SD=4.3, quiere decir que la mayoría de la población está entre los 18 y los 26 años
+- Problema: como es a partir de la media, también se infla por valores extrenmo
+]
+
+
+.pull-right[
+
+## forma de cálculo:
+
+$$S_X = \sqrt{\frac{\sum(X - \overline{X})^2}{n - 1}}$$
+donde:
+
+$S_X$ = Desviaciòn estandar de la variable X
+
+$\overline{X}$ = Media de X
+
+$n$ = Número de observaciones o tamaño muestral
+
+]
+
+---
+class: inverse, center, middle
+
+## Medidas de posición
+
+---
+background-image: url(clase3_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+## Cuartiles, Quintiles y deciles
+
+.pull-left[
+
+- Formas de subdivisión del conjunto de datos
+- Habitualmente divididos en cuartiles (4 partes), quintiles (5 partes) y deciles (10 partes)
+- Permite entender cómo es la forma de la distribución en toda la extensión
+
+
+]
+
+
+.pull-right[
+
+## forma de cálculo:
+
+1. Se divide el conjunto de observaciones en los grupos desesados
+2. Se aplica habitualmente el promedio por cada grupo para observar tendencia central agrupada
+3. Otras formas son con frecuencias acumuladas y porcentajes acumulados
+
+]
+
+---
+Ejercicio:
+
+Calcule la media, mediana, moda y desviación estander de:
+
+
+1: [167,174,175,170,185,173,170,171,158,164]
+
+2: [164,169,167,172,160,163,157,163,180,180]
+
+3: [171,158,174,190,160,175,162,170,117,165]
+
+4: [190,156,159,173,160,172,158,160,180,168]
+
+5: [169,169,163,181,165,160,175,187,190,181]
+
+
+---
+background-image: url(clase3_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, middle
+
+# ¿Qué es la Distribución Normal?
+
+La distribución normal es una de las distribuciones de probabilidad más importantes en estadística. Se caracteriza por su forma de campana y su simetría alrededor de la media.
+
+![Distribución Normal](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Normal_Distribution_PDF.svg/1200px-Normal_Distribution_PDF.svg.png)
+
+---
+background-image: url(clase3_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, middle
+
+# Propiedades de la Distribución Normal
+
+- **Media, Mediana y Moda:** Todas son iguales y se encuentran en el centro de la distribución.
+- **Unimodal:** Sólo hay un valor más repetido
+- **Simetría:** Es perfectamente simétrica respecto a la media.
+- **Curtosis:** Tiene una forma de campana, lo que significa que los datos se agrupan más cerca de la media.
+- **Asintótica:** Las colas de la distribución se acercan al eje X pero nunca tocan.
+
+
+---
+background-image: url(clase3_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Importancia de la Distribución Normal
+
+- **Teorema del Límite Central:** Establece que la suma de un gran número de variables aleatorias independientes tiende a una distribución normal, sin importar la distribución original de las variables.
+- **Modelos Estadísticos:** Muchos tests estadísticos y modelos están basados en la suposición de que los datos siguen una distribución normal.
+- **Inferencia Estadística:** Permite hacer inferencias sobre la población basadas en muestras.
+
+
+---
+background-image: url(clase3_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class:left, top
+
+# Visualización de Distribuciones Normales
+
+```{r echo=FALSE, fig.cap="Distribuciones Normales con diferentes medias y desviaciones estándar"}
+x <- seq(-10, 10, length=1000)
+y1 <- dnorm(x, mean=0, sd=1)
+y2 <- dnorm(x, mean=0, sd=2)
+y3 <- dnorm(x, mean=2, sd=1)
+plot(x, y1, type="l", col="blue", ylim=c(0, 0.5), ylab="Densidad", main="Distribuciones Normales")
+lines(x, y2, col="red")
+lines(x, y3, col="green")
+legend("topright", legend=c("media=0, sd=1", "media=0, sd=2", "media=2, sd=1"), col=c("blue", "red", "green"), lty=1)
+```
+
+
+---
+class: inverse, center, middle
+
+## Ejemplos de distribuciones normales
+
+
+---
+
+
+```{r}
+knitr::include_graphics("https://www.statology.org/wp-content/uploads/2021/02/unimodal1-2-768x408.png")
+```
+
+
+---
+
+```{r}
+knitr::include_graphics("https://www.statology.org/wp-content/uploads/2021/02/unimodal3-768x411.png")
+```
+
+
+---
+
+
+```{r}
+knitr::include_graphics("https://www.statology.org/wp-content/uploads/2021/02/normalReal2-768x419.png")
+```
+
+
+---
+class: center, middle
+
+### Visualización de Diferentes Distribuciones
+
+
+```{r echo=FALSE, fig.cap="Distribuciones: Uniforme, Binomial, Poisson y Power Law", fig.width=10, fig.height=8, out.width="55%"}
+# Librerías necesarias
+library(ggplot2)
+library(gridExtra)
+
+# Distribución Uniforme
+set.seed(123)
+uniform_data <- runif(1000, min=0, max=10)
+p1 <- ggplot(data.frame(x=uniform_data), aes(x)) +
+  geom_histogram(aes(y=..density..), bins=30, fill="blue", alpha=0.5, color="black") +
+  ggtitle("Distribución Uniforme") +
+  theme_minimal()
+
+# Distribución Binomial
+binom_data <- rbinom(1000, size=10, prob=0.5)
+p2 <- ggplot(data.frame(x=binom_data), aes(x)) +
+  geom_bar(aes(y=..count../sum(..count..)), fill="red", alpha=0.5, color="black") +
+  ggtitle("Distribución Binomial") +
+  theme_minimal()
+
+# Distribución Poisson
+poisson_data <- rpois(1000, lambda=4)
+p3 <- ggplot(data.frame(x=poisson_data), aes(x)) +
+  geom_bar(aes(y=..count../sum(..count..)), fill="green", alpha=0.5, color="black") +
+  ggtitle("Distribución Poisson") +
+  theme_minimal()
+
+# Distribución Power Law
+set.seed(123)
+# Parámetros para la distribución Pareto
+alpha <- 2.5
+xmin <- 1
+pareto_data <- (runif(1000))^(-1/(alpha - 1)) * xmin  # Generar datos usando la distribución Pareto
+
+p4 <- ggplot(data.frame(x=pareto_data), aes(x)) +
+  geom_histogram(aes(y=..density..), bins=30, fill="purple", alpha=0.5, color="black") +
+  ggtitle("Distribución Power Law (Libre de Escala)") +
+  theme_minimal()
+
+# Organizar las gráficas en una sola visualización
+grid.arrange(p1, p2, p3, p4, ncol=2)
+
+
+```
+
+
+
+
+
+
+---
+class: inversed, center, middle
+background-image: url(https://user-images.githubusercontent.com/163582/45438104-ea200600-b67b-11e8-80fa-d9f2a99a03b0.png)
+background-size: 80px
+background-position: 50% 90%
+
+# ¡Gracias!
+
+
+###fvillarroelr@udd.cl
+
+Slide creado con el paquete [**xaringan**](https://github.com/yihui/xaringan).
+
+
+El  chakra viene de [remark.js](https://remarkjs.com), [**knitr**](https://yihui.org/knitr/), y [R Markdown](https://rmarkdown.rstudio.com).
+Este slide fue creado por [**xaringan**](https://github.com/yihui/xaringan) y [**XaringanThemer**](https://pkg.garrickadenbuie.com/xaringanthemer/index.html)
