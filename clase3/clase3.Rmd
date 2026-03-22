@@ -489,12 +489,196 @@ Calcule la media, mediana, moda y desviación estander de:
 
 2: [164,169,167,172,160,163,157,163,180,180]
 
-3: [171,158,174,190,160,175,162,170,117,165]
+---
+class: center, middle
 
-4: [190,156,159,173,160,172,158,160,180,168]
+# ¿Qué es una distribución?
 
-5: [169,169,163,181,165,160,175,187,190,181]
+> Cuando medimos algo en muchas personas, los valores no son todos iguales.  
+> La **distribución** es simplemente *el patrón* de cómo se reparten esos valores.
 
+---
+class: center, middle
+
+## De datos sueltos a una forma
+
+
+```{r echo=FALSE, fig.width=11, fig.height=5, out.width="90%", fig.align='center'}
+library(ggplot2)
+library(gridExtra)
+
+set.seed(7)
+poblacion <- rlnorm(5000, meanlog = log(18), sdlog = 0.6)
+
+# n=10
+d10  <- data.frame(x = sample(poblacion, 10))
+d100 <- data.frame(x = sample(poblacion, 100))
+d500 <- data.frame(x = sample(poblacion, 500))
+
+base_theme <- theme_minimal(base_size = 12) +
+  theme(plot.title = element_text(face = "bold"),
+        axis.title = element_blank())
+
+p1 <- ggplot(d10, aes(x)) +
+  geom_dotplot(fill = "#E74C3C", color = "white", binwidth = 4) +
+  ggtitle("n = 10 personas") +
+  labs(subtitle = "¿Ves algún patrón?") +
+  scale_x_continuous(limits = c(0, 80)) +
+  base_theme
+
+p2 <- ggplot(d100, aes(x)) +
+  geom_histogram(bins = 15, fill = "#3498DB", alpha = 0.7, color = "white") +
+  ggtitle("n = 100 personas") +
+  labs(subtitle = "Algo empieza a aparecer...") +
+  scale_x_continuous(limits = c(0, 80)) +
+  base_theme
+
+p3 <- ggplot(d500, aes(x)) +
+  geom_histogram(aes(y = ..density..), bins = 25,
+                 fill = "#2ECC71", alpha = 0.7, color = "white") +
+  geom_density(color = "#1a8a4a", linewidth = 1.3) +
+  ggtitle("n = 500 personas") +
+  labs(subtitle = "La forma se vuelve clara") +
+  scale_x_continuous(limits = c(0, 80)) +
+  base_theme
+
+grid.arrange(p1, p2, p3, nrow = 1)
+```
+
+> **Minutos diarios viendo noticias** — cada barra agrupa a personas con valores similares.  
+> Con más datos, emerge la **distribución**: la "firma estadística" de ese fenómeno.
+
+
+
+---
+```{r echo=FALSE, fig.width=12, fig.height=7, out.width="90%", fig.align='center'}
+library(ggplot2)
+library(patchwork)
+
+# --- Tema base para todos los paneles ---
+tema_cartesiano <- function() {
+  theme_minimal(base_size = 11) +
+  theme(
+    panel.grid.minor  = element_blank(),
+    panel.grid.major  = element_line(color = "grey88", linewidth = 0.4),
+    axis.line         = element_line(color = "grey30", linewidth = 0.6,
+                                     arrow = arrow(length = unit(0.2, "cm"),
+                                                   type = "closed")),
+    axis.ticks        = element_line(color = "grey50"),
+    axis.ticks.length = unit(0.15, "cm"),
+    plot.title        = element_text(face = "bold", size = 11),
+    plot.subtitle     = element_text(size = 9, color = "grey40"),
+    axis.title        = element_text(size = 10, face = "bold"),
+    axis.text         = element_text(size = 9, color = "grey40")
+  )
+}
+
+escala_x  <- scale_x_continuous(limits = c(-4.5, 4.5), breaks = -4:4)
+escala_y  <- scale_y_continuous(limits = c(0, 0.55),   breaks = seq(0, 0.5, 0.1))
+rango_x   <- data.frame(x = c(-4.5, 4.5))
+
+# ── Panel 1: Los ejes solos ──────────────────────────────────────────────────
+p1 <- ggplot() +
+  escala_x + escala_y +
+  annotate("text", x =  2.8, y = 0.52, label = "Cuadrante I",
+           size = 3, color = "grey70") +
+  annotate("text", x = -2.8, y = 0.52, label = "Cuadrante II",
+           size = 3, color = "grey70") +
+  labs(title = "1. El plano cartesiano",
+       subtitle = "Dos ejes que se cruzan en el origen (0, 0)",
+       x = "X", y = "Y") +
+  tema_cartesiano()
+
+# ── Panel 2: Eje X destacado ─────────────────────────────────────────────────
+p2 <- ggplot() +
+  annotate("segment", x = -4.3, xend = 4.3, y = 0.02, yend = 0.02,
+           color = "#185FA5", linewidth = 2, lineend = "round",
+           arrow = arrow(length = unit(0.25, "cm"), type = "closed")) +
+  annotate("text", x = 0, y = 0.12,
+           label = "los valores crecen →",
+           color = "#185FA5", size = 3.2, fontface = "italic") +
+  annotate("text", x = c(-3, -2, -1, 0, 1, 2, 3),
+           y = rep(-0.02, 7),
+           label = c("-3", "-2", "-1", "0", "1", "2", "3"),
+           size = 3, color = "grey50") +
+  escala_x +
+  scale_y_continuous(limits = c(-0.05, 0.55)) +
+  labs(title = "2. El eje X (horizontal)",
+       subtitle = "Representa el valor medido",
+       x = "X  →  valor medido", y = "Y") +
+  tema_cartesiano()
+
+# ── Panel 3: Eje Y destacado ─────────────────────────────────────────────────
+p3 <- ggplot() +
+  annotate("segment", x = 0, xend = 0, y = 0.02, yend = 0.50,
+           color = "#1D9E75", linewidth = 2, lineend = "round",
+           arrow = arrow(length = unit(0.25, "cm"), type = "closed")) +
+  annotate("text", x = 1.6, y = 0.30,
+           label = "↑ más frecuente\n↓ menos frecuente",
+           color = "#1D9E75", size = 3.2, fontface = "italic") +
+  escala_x + escala_y +
+  labs(title = "3. El eje Y (vertical)",
+       subtitle = "Representa cuántas veces ocurre ese valor",
+       x = "X", y = "Y  →  frecuencia / densidad") +
+  tema_cartesiano()
+
+# ── Panel 4: Un punto (x, y) ──────────────────────────────────────────────────
+p4 <- ggplot() +
+  # líneas punteadas de proyección
+  annotate("segment", x = 2, xend = 2,   y = 0, yend = 0.35,
+           linetype = "dashed", color = "#D85A30", linewidth = 0.5) +
+  annotate("segment", x = -4.3, xend = 2, y = 0.35, yend = 0.35,
+           linetype = "dashed", color = "#D85A30", linewidth = 0.5) +
+  # el punto
+  annotate("point", x = 2, y = 0.35, size = 4, color = "#D85A30") +
+  # etiquetas
+  annotate("text",  x = 2.15, y = 0.38,
+           label = "(2 , 0.35)", color = "#D85A30",
+           size = 3.2, hjust = 0, fontface = "bold") +
+  annotate("text",  x = 2,    y = -0.02,
+           label = "x = 2", color = "#D85A30", size = 3) +
+  annotate("text",  x = -4.1, y = 0.35,
+           label = "y = 0.35", color = "#D85A30", size = 3, hjust = 0) +
+  escala_x +
+  scale_y_continuous(limits = c(-0.04, 0.55), breaks = seq(0, 0.5, 0.1)) +
+  labs(title = "4. Un punto (x, y)",
+       subtitle = "Posición horizontal = valor; altura = qué tan frecuente",
+       x = "X", y = "Y") +
+  tema_cartesiano()
+
+# ── Panel 5: Distribución normal como histograma + curva ─────────────────────
+set.seed(42)
+datos <- data.frame(x = rnorm(800, mean = 0, sd = 1))
+
+p5 <- ggplot(datos, aes(x)) +
+  geom_histogram(aes(y = after_stat(density)),
+                 bins = 28, fill = "#185FA5", alpha = 0.55,
+                 color = "white", linewidth = 0.3) +
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 1),
+                color = "#D85A30", linewidth = 1.2) +
+  annotate("text", x = 0.1, y = 0.46,
+           label = "moda / media / mediana",
+           color = "#D85A30", size = 2.9, hjust = 0) +
+  annotate("segment", x = 0, xend = 0, y = 0, yend = 0.43,
+           linetype = "dotted", color = "#D85A30", linewidth = 0.6) +
+  escala_x + escala_y +
+  labs(title = "5. Muchos puntos → distribución",
+       subtitle = "Cada barra = cuántas personas tienen ese valor en X",
+       x = "X  →  valor medido", y = "Y  →  densidad") +
+  tema_cartesiano()
+
+# ── Composición final ─────────────────────────────────────────────────────────
+(p1 | p2 | p3) / (p2 + theme(plot.margin = unit(c(0,20,0,20), "pt")) +
+  p4 | p5) +
+  plot_annotation(
+    title   = "Del plano cartesiano a la distribución",
+    subtitle = "Cada panel agrega un elemento nuevo",
+    theme = theme(
+      plot.title    = element_text(face = "bold", size = 13),
+      plot.subtitle = element_text(size = 10, color = "grey45")
+    )
+  )
+```
 
 ---
 background-image: url(clase3_files/Comunicaciones_udd.png)
@@ -555,6 +739,69 @@ lines(x, y3, col="green")
 legend("topright", legend=c("media=0, sd=1", "media=0, sd=2", "media=2, sd=1"), col=c("blue", "red", "green"), lty=1)
 ```
 
+---
+
+---
+class: center, middle
+
+### Visualización de Diferentes Distribuciones
+
+
+```{r echo=FALSE, fig.width=10, fig.height=8, out.width="65%", fig.align='center'}
+library(ggplot2)
+library(gridExtra)
+
+# Paleta de colores consistente
+col1 <- "#E74C3C"; col2 <- "#3498DB"; col3 <- "#2ECC71"; col4 <- "#9B59B6"
+
+# 1. Distribución Bimodal
+set.seed(42)
+bimodal_data <- c(rnorm(500, mean=3, sd=0.8), rnorm(500, mean=7, sd=0.8))
+p1 <- ggplot(data.frame(x=bimodal_data), aes(x)) +
+  geom_histogram(aes(y=..density..), bins=40, fill=col1, alpha=0.6, color="white") +
+  geom_density(color=col1, linewidth=1.2) +
+  ggtitle("Bimodal") +
+  labs(subtitle="Dos grupos superpuestos", x=NULL, y="Densidad") +
+  theme_minimal(base_size=13) +
+  theme(plot.title=element_text(face="bold"))
+
+# 2. Distribución Asimétrica positiva (Lognormal)
+set.seed(42)
+lognorm_data <- rlnorm(1000, meanlog=1, sdlog=0.7)
+p2 <- ggplot(data.frame(x=lognorm_data), aes(x)) +
+  geom_histogram(aes(y=..density..), bins=40, fill=col2, alpha=0.6, color="white") +
+  geom_density(color=col2, linewidth=1.2) +
+  ggtitle("Asimétrica positiva (Log-Normal)") +
+  labs(subtitle="Cola larga a la derecha", x=NULL, y="Densidad") +
+  theme_minimal(base_size=13) +
+  theme(plot.title=element_text(face="bold"))
+
+# 3. Distribución Uniforme / Flat
+set.seed(42)
+flat_data <- runif(1000, min=0, max=10)
+p3 <- ggplot(data.frame(x=flat_data), aes(x)) +
+  geom_histogram(aes(y=..density..), bins=20, fill=col3, alpha=0.6, color="white") +
+  geom_hline(yintercept=0.1, color=col3, linewidth=1.2, linetype="dashed") +
+  ggtitle("Plana (Uniforme)") +
+  labs(subtitle="Igual probabilidad en todo el rango", x=NULL, y="Densidad") +
+  theme_minimal(base_size=13) +
+  theme(plot.title=element_text(face="bold"))
+
+# 4. Distribución con colas pesadas (t de Student con pocos grados de libertad)
+set.seed(42)
+heavy_data <- rt(1000, df=3)
+heavy_data <- heavy_data[abs(heavy_data) < 8]  # recortar outliers extremos para visualización
+p4 <- ggplot(data.frame(x=heavy_data), aes(x)) +
+  geom_histogram(aes(y=..density..), bins=40, fill=col4, alpha=0.6, color="white") +
+  geom_density(color=col4, linewidth=1.2) +
+  ggtitle("Colas Pesadas (t de Student, df=3)") +
+  labs(subtitle="Eventos extremos más frecuentes", x=NULL, y="Densidad") +
+  theme_minimal(base_size=13) +
+  theme(plot.title=element_text(face="bold"))
+
+grid.arrange(p1, p2, p3, p4, ncol=2)
+```
+
 
 ---
 class: inverse, center, middle
@@ -586,59 +833,101 @@ knitr::include_graphics("https://www.statology.org/wp-content/uploads/2021/02/no
 
 
 ---
-class: center, middle
 
-### Visualización de Diferentes Distribuciones
-
-
-```{r echo=FALSE, fig.cap="Distribuciones: Uniforme, Binomial, Poisson y Power Law", fig.width=10, fig.height=8, out.width="55%"}
-# Librerías necesarias
+```{r echo=FALSE, fig.width=10, fig.height=8, out.width="75%", fig.align='center'}
 library(ggplot2)
 library(gridExtra)
 
-# Distribución Uniforme
-set.seed(123)
-uniform_data <- runif(1000, min=0, max=10)
-p1 <- ggplot(data.frame(x=uniform_data), aes(x)) +
-  geom_histogram(aes(y=..density..), bins=30, fill="blue", alpha=0.5, color="black") +
-  ggtitle("Distribución Uniforme") +
-  theme_minimal()
+col1 <- "#E74C3C"; col2 <- "#3498DB"; col3 <- "#2ECC71"; col4 <- "#9B59B6"
 
-# Distribución Binomial
-binom_data <- rbinom(1000, size=10, prob=0.5)
-p2 <- ggplot(data.frame(x=binom_data), aes(x)) +
-  geom_bar(aes(y=..count../sum(..count..)), fill="red", alpha=0.5, color="black") +
-  ggtitle("Distribución Binomial") +
-  theme_minimal()
+# 1. BIMODAL: Polarización de opinión pública
+# Calibrado con datos tipo ANES: distribución bimodal en temas valóricos
+# (ej: aborto, matrimonio igualitario) — literatura DiMaggio et al. 1996
+set.seed(42)
+izq  <- rnorm(500, mean = 2.0, sd = 0.6)   # polo progresista
+der  <- rnorm(500, mean = 4.0, sd = 0.6)   # polo conservador
+polar_data <- data.frame(x = c(izq, der))
 
-# Distribución Poisson
-poisson_data <- rpois(1000, lambda=4)
-p3 <- ggplot(data.frame(x=poisson_data), aes(x)) +
-  geom_bar(aes(y=..count../sum(..count..)), fill="green", alpha=0.5, color="black") +
-  ggtitle("Distribución Poisson") +
-  theme_minimal()
+p1 <- ggplot(polar_data, aes(x)) +
+  geom_histogram(aes(y = ..density..), bins = 35,
+                 fill = col1, alpha = 0.6, color = "white") +
+  geom_density(color = col1, linewidth = 1.2) +
+  scale_x_continuous(
+    limits = c(1, 5),
+    breaks = c(1, 2, 3, 4, 5),
+    labels = c("Muy\nen contra", "", "Neutro", "", "Muy\na favor")
+  ) +
+  ggtitle("Bimodal: Polarización de opinión") +
+  labs(subtitle = "Tema valórico en encuesta (tipo ANES/CADEM)",
+       x = NULL, y = "Densidad") +
+  theme_minimal(base_size = 12) +
+  theme(plot.title = element_text(face = "bold"))
 
-# Distribución Power Law
-set.seed(123)
-# Parámetros para la distribución Pareto
-alpha <- 2.5
-xmin <- 1
-pareto_data <- (runif(1000))^(-1/(alpha - 1)) * xmin  # Generar datos usando la distribución Pareto
+# 2. POWER LAW: Seguidores en redes sociales (Zipf/Pareto)
+# Empírico: distribución de seguidores en Twitter/Instagram sigue power law
+# Fuente: Zipf's Law across social media (2022)
+set.seed(42)
+alpha  <- 2.2
+xmin   <- 100
+n      <- 2000
+u      <- runif(n)
+seguidores <- xmin * (1 - u)^(-1 / (alpha - 1))
+seguidores <- seguidores[seguidores < 500000]  # recortar extremo visual
 
-p4 <- ggplot(data.frame(x=pareto_data), aes(x)) +
-  geom_histogram(aes(y=..density..), bins=30, fill="purple", alpha=0.5, color="black") +
-  ggtitle("Distribución Power Law (Libre de Escala)") +
-  theme_minimal()
+p2 <- ggplot(data.frame(x = seguidores), aes(x)) +
+  geom_histogram(aes(y = ..density..), bins = 60,
+                 fill = col2, alpha = 0.6, color = "white") +
+  scale_x_continuous(labels = scales::comma) +
+  ggtitle("Power Law: Seguidores en RRSS") +
+  labs(subtitle = "Distribución de seguidores (Twitter/Instagram)",
+       x = "N° de seguidores", y = "Densidad") +
+  theme_minimal(base_size = 12) +
+  theme(plot.title = element_text(face = "bold"))
 
-# Organizar las gráficas en una sola visualización
-grid.arrange(p1, p2, p3, p4, ncol=2)
+# 3. LOGNORMAL: Tiempo de exposición a noticias
+# Calibrado con estudios de news exposure:
+# mediana ~1.5 min, cola larga (algunos leen mucho, mayoría poco)
+set.seed(42)
+tiempo <- rlnorm(1000, meanlog = log(1.5), sdlog = 1.1)
+tiempo <- tiempo[tiempo < 25]  # minutos plausibles
 
+p3 <- ggplot(data.frame(x = tiempo), aes(x)) +
+  geom_histogram(aes(y = ..density..), bins = 40,
+                 fill = col3, alpha = 0.6, color = "white") +
+  geom_density(color = col3, linewidth = 1.2) +
+  ggtitle("Log-Normal: Tiempo leyendo noticias") +
+  labs(subtitle = "Minutos de exposición por visita (mediana ~1.5 min)",
+       x = "Minutos", y = "Densidad") +
+  theme_minimal(base_size = 12) +
+  theme(plot.title = element_text(face = "bold"))
 
+# 4. UNIFORME: Respuesta a escala Likert en tema de baja implicación
+# Cuando un tema no activa actitudes fuertes, las respuestas se
+# distribuyen de forma aproximadamente plana (indiferencia generalizada)
+set.seed(42)
+likert_data <- sample(1:5, 800, replace = TRUE,
+                      prob = c(0.19, 0.20, 0.22, 0.20, 0.19))
+
+p4 <- ggplot(data.frame(x = likert_data), aes(x)) +
+  geom_bar(aes(y = ..count.. / sum(..count..)),
+           fill = col4, alpha = 0.6, color = "white", width = 0.6) +
+  geom_hline(yintercept = 0.20, color = col4,
+             linewidth = 1.2, linetype = "dashed") +
+  scale_x_continuous(
+    breaks = 1:5,
+    labels = c("Muy en\ndesacuerdo", "En\ndesacuerdo",
+               "Neutro", "De\nacuerdo", "Muy de\nacuerdo")
+  ) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  ggtitle("Plana: Likert en tema de baja implicación") +
+  labs(subtitle = "Sin actitud formada → respuestas equiprobables",
+       x = NULL, y = "Proporción") +
+  theme_minimal(base_size = 12) +
+  theme(plot.title = element_text(face = "bold"),
+        axis.text.x = element_text(size = 9))
+
+grid.arrange(p1, p2, p3, p4, ncol = 2)
 ```
-
-
-
-
 
 
 ---
