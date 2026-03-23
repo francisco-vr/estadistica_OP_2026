@@ -76,7 +76,7 @@ h1, h2, h3 {
 ```
 
 ## Análisis estadístico y opinión Pública
-### Clase 8: Introducción a la estadística descriptiva
+### Clase 3: Introducción a la estadística descriptiva
 #### Frecuencias, porcentajes, medidas de tendencia central
 
 <br>

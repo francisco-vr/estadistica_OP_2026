@@ -260,14 +260,12 @@ n de hombres que deben ser encuestados: 245
 
 
 ---
-Ejercicio:
+Cosas importantes del ejercicio:
 
-Calcule la media, mediana, moda y desviación estander de:
+1. Escribir la fórmula con los valores reales
+2. Mostrar el desarrollo del ejercicio hasta obtener el resultado
+4. Escribir el resultado final con palabras
 
-
-1: [167,174,175,170,185,173,170,171,158,164]
-
-2: [164,169,167,172,160,163,157,163,180,180]
 
 ---
 
@@ -444,8 +442,6 @@ class: inverse, center, middle
 
 ## Ejemplos de distribuciones normales
 
-
-
 ---
 
 ```{r echo=FALSE, fig.width=10, fig.height=8, out.width="75%", fig.align='center'}
@@ -542,7 +538,33 @@ p4 <- ggplot(data.frame(x = likert_data), aes(x)) +
 
 grid.arrange(p1, p2, p3, p4, ncol = 2)
 ```
+---
+## Ensayo final de control:
 
+La Municipalidad de Providencia desea realizar una encuesta a los vecinos de la comuna para conocer su satisfacción con los servicios municipales. Se sabe que la comuna tiene 12.840 vecinos registrados.
+
+¿Cuántos vecinos se debe encuestar para obtener una muestra representativa bajo muestreo aleatorio simple?
+
+---
+Extra: La Municipalidad quiere resultados más precisos y solicita recalcular la muestra con un 99% de confianza en vez de 95%. Indique el nuevo tamaño muestral y explique brevemente los beneficios y desafíos de usar este nivel de confianza.
+
+
+---
+
+Pregunta 2 — Medidas descriptivas
+
+El podcast chileno Tomás va a morir registró los siguientes números de comentarios en 8 episodios de su canal de YouTube:
+
+ B = [716 ; 367 ; 671 ; 525 ; 249 ; 386 ; 465 ; 568] 
+ 
+
+Con esta lista de valores calcule:
+
+- Media
+- Mediana
+- Moda
+- Rango
+- Desviación estándar
 
 ---
 class: inversed, center, middle
