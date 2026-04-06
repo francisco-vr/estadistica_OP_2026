@@ -1,0 +1,538 @@
+---
+title: "Clase 8: Mètodos cuantitativos para Opinión pública"
+author: 
+  - "Francisco Villarroel Riquelme"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+      countdown: 180000
+    seal: false
+    
+---
+class:center, middle, bg_karl
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = FALSE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(knitr)
+library(xaringanthemer)
+style_duo_accent(
+  primary_color = "#b01333",
+  secondary_color = "#085e9f",
+  inverse_header_color = "#FFFFFF"
+)
+```
+```{css, echo=F}
+h1, h2, h3 {
+  text-align: center;
+}
+```
+
+
+
+```{css, echo = F}
+
+.reduced_opacity {
+  opacity: 0.05;
+}
+
+
+.bg_karl {
+  position: relative;
+  z-index: 1;
+}
+.bg_karl::before {    
+      content: "";
+      background-image: url('https://www.pewresearch.org/wp-content/uploads/2022/10/3-header_howPollingWorks.jpg');
+      background-size: cover;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.1;
+      z-index: -1;
+}
+```
+
+## Análisis estadístico y opinión Pública
+### Clase 5: Introducción a la estadística descriptiva
+#### Análisis estadístico
+
+<br>
+
+#### Francisco Villarroel Riquelme (CICS- UDD) 
+#### 
+
+
+<br>
+<br>
+<br>
+<br>
+```{r, echo=FALSE, message = FALSE, out.width="30%", fig.align='center'}
+knitr::include_graphics("clase5_files/Comunicaciones_udd.png")
+```
+
+---
+class:  center, middle
+
+## El oficio del análisis estadístico e introducción a JASP
+
+
+```{r, fig.align='center', out.width="70%"}
+knitr::include_graphics("clase5_files/th-1264573742.jpg")
+```
+
+
+---
+background-image: url(clase5_files/th-1264573742.jpg)
+background-size: 220px
+background-position: 97% 3%
+class:left, top
+
+## Por qué JASP?
+
+
+.left-column[
+
+### 1.Libre
+
+### 2.Gratis
+
+### 3.Sencillo
+
+### 4.Profundidad de análisis
+
+]
+
+
+
+.right-column[
+
+1. Al ser libre implica que puedes hacer mejoras y hay comunidad detrás que lo actualizan constantemente
+2. No debes pagar ninguna licencia
+3. Es igual o más sencillo que SPSS. Puedes usar las bases de datos de todos los démas programas acá (.csv, .xlxs, .RData, .stata, .dta, etc)
+4. Se puede hacer estadística descriptiva, inferencial, psicometría y estadística bayesiana avanzada 
+
+
+]
+---
+background-image: url(clase5_files/th-1264573742.jpg)
+background-size: 220px
+background-position: 97% 3%
+class: left, top
+
+## Comparación de programas estadísticos
+```{css, echo=F}
+.comparison-table {
+  font-size: 0.75em;
+  width: 100%;
+}
+.comparison-table th {
+  background-color: #b01333;
+  color: white;
+  padding: 6px 10px;
+}
+.comparison-table td {
+  padding: 5px 10px;
+  border-bottom: 1px solid #ddd;
+}
+.pro { color: #1a7a1a; font-weight: bold; }
+.con { color: #b01333; font-weight: bold; }
+```
+
+<table class="comparison-table">
+<thead>
+<tr><th>Criterio</th><th>JASP</th><th>SPSS</th><th>STATA</th><th>R</th></tr>
+</thead>
+<tbody>
+<tr>
+  <td><b>Precio</b></td>
+  <td><span class="pro">✔ Gratis</span></td>
+  <td><span class="con">✘ ~$100/mes</span></td>
+  <td><span class="con">✘ ~$500/año</span></td>
+  <td><span class="pro">✔ Gratis</span></td>
+</tr>
+<tr>
+  <td><b>Curva de aprendizaje</b></td>
+  <td><span class="pro">✔ Baja</span></td>
+  <td><span class="pro">✔ Baja/Media</span></td>
+  <td><span class="con">✘ Media/Alta</span></td>
+  <td><span class="con">✘ Alta</span></td>
+</tr>
+<tr>
+  <td><b>Interfaz</b></td>
+  <td><span class="pro">✔ Gráfica (GUI)</span></td>
+  <td><span class="pro">✔ Gráfica (GUI)</span></td>
+  <td>Mixta</td>
+  <td><span class="con">✘ Código</span></td>
+</tr>
+<tr>
+  <td><b>Customización</b></td>
+  <td><span class="con">✘ Limitada</span></td>
+  <td><span class="con">✘ Limitada</span></td>
+  <td>Media</td>
+  <td><span class="pro">✔ Total</span></td>
+</tr>
+<tr>
+  <td><b>Estadística bayesiana</b></td>
+  <td><span class="pro">✔ Nativa</span></td>
+  <td><span class="con">✘ No</span></td>
+  <td><span class="con">✘ Limitada</span></td>
+  <td><span class="pro">✔ Con paquetes</span></td>
+</tr>
+<tr>
+  <td><b>Reproducibilidad</b></td>
+  <td>Media</td>
+  <td>Media</td>
+  <td><span class="pro">✔ Alta</span></td>
+  <td><span class="pro">✔ Muy alta</span></td>
+</tr>
+<tr>
+  <td><b>Formatos compatibles</b></td>
+  <td><span class="pro">✔ Múltiples</span></td>
+  <td>Propietario</td>
+  <td>Propietario</td>
+  <td><span class="pro">✔ Múltiples</span></td>
+</tr>
+</tbody>
+</table>
+
+<br>
+<br>
+
+> 💡 **Para este curso:** JASP combina lo mejor de ambos mundos — accesibilidad de SPSS con profundidad analítica similar a R, sin costo.
+
+
+---
+class: inverse, middle, left
+
+### Pasos para analizar datos
+
+---
+background-image: url(clase5_files/th-1264573742.jpg)
+background-size: 220px
+background-position: 97% 3%
+class: left, top
+
+## ¿Qué necesito para analizar una encuesta?
+
+.pull-left[
+### 1. Una base de datos
+- El archivo con las respuestas de los encuestados
+- Puede estar en distintos formatos: `.csv`, `.xlsx`, `.sav`, `.dta`, `.RData`
+- **Regla de oro:** una fila = una persona, una columna = una variable
+
+### 2. Un libro de códigos
+- El "diccionario" de tu base de datos
+- Explica qué significa cada variable y sus valores
+- Sin él, los números no tienen sentido
+]
+
+.pull-right[
+###  3. Un plan de análisis
+- ¿Qué quiero investigar o responder?
+- ¿Qué variables necesito para eso?
+- ¿Qué tipo de variables son? → ¿Qué análisis puedo hacer?
+
+<br>
+```{css, echo=F}
+.highlight-box {
+  background-color: #f0f4ff;
+  border-left: 4px solid #085e9f;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+```
+
+<div class="highlight-box">
+⚠️ Sin estos tres elementos, el análisis estadístico carece de sentido interpretativo. No basta con correr números — hay que entender qué representan.
+</div>
+]
+
+---
+background-image: url(clase5_files/th-1264573742.jpg)
+background-size: 220px
+background-position: 97% 3%
+class: left, top
+
+## La base de datos: cómo leerla
+
+.left-column[
+### Formatos comunes
+- `.csv` ← universal
+- `.xlsx` ← Excel
+- `.sav` ← SPSS
+- `.dta` ← STATA
+- `.RData` ← R
+
+<br>
+**JASP lee todos estos formatos**
+]
+
+.right-column[
+### Lógica de una base de datos transversal
+```{css, echo=F}
+.data-table {
+  font-size: 0.78em;
+  border-collapse: collapse;
+  width: 100%;
+}
+.data-table th {
+  background-color: #085e9f;
+  color: white;
+  padding: 5px 8px;
+  text-align: center;
+}
+.data-table td {
+  padding: 4px 8px;
+  border: 1px solid #black;
+  text-align: center;
+}
+.data-table tr:nth-child(even) { background-color: #f2f2f2; }
+.row-label { background-color: #ffeaea !important; font-weight: bold; }
+.col-label { background-color: #e8f0ff !important; font-weight: bold; }
+```
+
+<table class="data-table">
+<thead>
+<tr>
+  <th>id</th>
+  <th class="col-label">p1_edad</th>
+  <th class="col-label">p2_sexo</th>
+  <th class="col-label">p3_confianza_gob</th>
+  <th class="col-label">p4_voto</th>
+</tr>
+</thead>
+<tbody>
+<tr><td class="row-label">1</td><td>34</td><td>2</td><td>3</td><td>1</td></tr>
+<tr><td class="row-label">2</td><td>52</td><td>1</td><td>1</td><td>2</td></tr>
+<tr><td class="row-label">3</td><td>28</td><td>2</td><td>4</td><td>1</td></tr>
+<tr><td class="row-label">4</td><td>61</td><td>1</td><td>2</td><td>3</td></tr>
+</tbody>
+</table>
+
+<br>
+
+- 🟥 Cada **fila** = una persona encuestada
+- 🟦 Cada **columna** = una variable (generalmente una pregunta)
+- Los valores son **numéricos** → necesitas el libro de códigos para interpretarlos
+- `.csv` es el formato más **universal e interoperable** entre programas
+]
+
+---
+background-image: url(clase5_files/th-1264573742.jpg)
+background-size: 220px
+background-position: 97% 3%
+class: left, top
+
+### El libro de códigos: el diccionario de tus datos
+
+.pull-left[
+#### ¿Qué es?
+Un documento que describe **cada variable** de la base de datos:
+- Nombre de la variable (como aparece en la base)
+- La pregunta original del cuestionario
+- Los valores posibles y su significado
+- El tipo de variable
+
+#### ¿Por qué importa?
+Sin él, el valor `2` en la columna `p2_sexo` podría significar cualquier cosa. El libro de códigos te dice que `1 = Hombre` y `2 = Mujer`.
+]
+
+.pull-right[
+#### Ejemplo de libro de códigos
+```{css, echo=F}
+.codebook-table {
+  font-size: 0.72em;
+  border-collapse: collapse;
+  width: 100%;
+}
+.codebook-table th {
+  background-color: #b01333;
+  color: white;
+  padding: 5px 8px;
+}
+.codebook-table td {
+  padding: 4px 7px;
+  border: 1px solid #ddd;
+  vertical-align: top;
+}
+.codebook-table tr:nth-child(even) { background-color: #fdf2f2; }
+```
+
+<table class="codebook-table">
+<thead>
+<tr><th>Variable</th><th>Pregunta</th><th>Valores</th><th>Tipo</th></tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>p1_edad</code></td>
+  <td>¿Cuántos años tiene usted?</td>
+  <td>18 – 99</td>
+  <td>Continua</td>
+</tr>
+<tr>
+  <td><code>p2_sexo</code></td>
+  <td>Sexo del entrevistado</td>
+  <td>1 = Hombre<br>2 = Mujer</td>
+  <td>Nominal</td>
+</tr>
+<tr>
+  <td><code>p3_confianza_gob</code></td>
+  <td>¿Cuánta confianza tiene en el gobierno?</td>
+  <td>1 = Ninguna<br>2 = Poca<br>3 = Algo<br>4 = Mucha</td>
+  <td>Ordinal</td>
+</tr>
+<tr>
+  <td><code>p4_voto</code></td>
+  <td>¿Votó usted en las últimas elecciones?</td>
+  <td>1 = Sí<br>2 = No<br>3 = NS/NR</td>
+  <td>Nominal</td>
+</tr>
+</tbody>
+</table>
+
+]
+
+---
+background-image: url(clase5_files/th-1264573742.jpg)
+background-size: 220px
+background-position: 97% 3%
+class: left, top
+
+## Tener un plan: saber qué quiero investigar
+
+.pull-left[
+### Paso 1: Define tu pregunta
+¿Qué quiero saber? Ejemplo:
+> *"¿Los jóvenes confían menos en el gobierno que los adultos mayores?"*
+
+### Paso 2: Identifica tus variables
+- **Variable dependiente:** `p3_confianza_gob`
+- **Variable independiente:** `p1_edad` (o tramo etario)
+
+]
+
+.pull-right[
+### Paso 3: ¿Qué tipo de variables son?
+```{css, echo=F}
+.type-table {
+  font-size: 0.78em;
+  border-collapse: collapse;
+  width: 100%;
+}
+.type-table th {
+  background-color: #085e9f;
+  color: white;
+  padding: 5px 8px;
+}
+.type-table td {
+  padding: 4px 8px;
+  border: 1px solid #ddd;
+}
+```
+
+<table class="type-table">
+<thead>
+<tr><th>Tipo</th><th>Descripción</th><th>Ejemplo</th></tr>
+</thead>
+<tbody>
+<tr><td><b>Nominal</b></td><td>Categorías sin orden</td><td>Sexo, región</td></tr>
+<tr><td><b>Ordinal</b></td><td>Categorías con orden</td><td>Escala Likert</td></tr>
+<tr><td><b>Continua</b></td><td>Valores numéricos</td><td>Edad, ingreso</td></tr>
+</tbody>
+</table>
+
+]
+
+
+---
+class: middle, left
+
+
+### Paso 4: ¿Qué análisis puedo hacer?
+```{css, echo=F}
+.analysis-box {
+  font-size: 0.78em;
+  background: #f8f8f8;
+  border-left: 4px solid #b01333;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border-radius: 3px;
+}
+```
+
+<div class="analysis-box">
+<b>Variable nominal/ordinal →</b><br>
+Frecuencias, porcentajes, moda, tablas cruzadas
+</div>
+
+<div class="analysis-box">
+<b>Variable continua →</b><br>
+Media, mediana, desviación estándar, histogramas
+</div>
+
+<div class="analysis-box">
+<b>Nominal × Continua →</b><br>
+Comparación de medias (t-test, ANOVA)
+</div>
+
+<div class="analysis-box">
+<b>Ordinal × Ordinal →</b><br>
+Correlación de Spearman, tablas cruzadas
+</div>
+
+<br>
+> 🎯 El tipo de variable **determina** el análisis posible. Elegir mal el análisis produce resultados inválidos.
+
+---
+class: middle, left
+
+### Los pasos que veremos hoy:
+
+
+* Entender la interfaz de JASP
+* Cómo cargar datos
+* Entender qué variables queremos y qué singifica cada cosa
+* Limpiar bases de datos 
+
+
+
+---
+class: inversed, center, middle
+background-image: url(https://user-images.githubusercontent.com/163582/45438104-ea200600-b67b-11e8-80fa-d9f2a99a03b0.png)
+background-size: 80px
+background-position: 50% 90%
+
+# ¡Gracias!
+
+
+###fvillarroelr@udd.cl
+
+Slide creado con el paquete [**xaringan**](https://github.com/yihui/xaringan).
+
+
+El  chakra viene de [remark.js](https://remarkjs.com), [**knitr**](https://yihui.org/knitr/), y [R Markdown](https://rmarkdown.rstudio.com).
+Este slide fue creado por [**xaringan**](https://github.com/yihui/xaringan) y [**XaringanThemer**](https://pkg.garrickadenbuie.com/xaringanthemer/index.html)

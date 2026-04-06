@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Clase 8: Mètodos cuantitativos para Opinión pública</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Francisco Villarroel Riquelme" />
+    <meta name="date" content="2026-04-06" />
+    <script src="clase5_files/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class:center, middle, bg_karl
+
+
+
+
+
+
+&lt;style type="text/css"&gt;
+h1, h2, h3 {
+  text-align: center;
+}
+&lt;/style&gt;
+
+
+
+&lt;style type="text/css"&gt;
+
+.reduced_opacity {
+  opacity: 0.05;
+}
+
+
+.bg_karl {
+  position: relative;
+  z-index: 1;
+}
+.bg_karl::before {    
+      content: "";
+      background-image: url('https://www.pewresearch.org/wp-content/uploads/2022/10/3-header_howPollingWorks.jpg');
+      background-size: cover;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.1;
+      z-index: -1;
+}
+&lt;/style&gt;
+
+## Análisis estadístico y opinión Pública
+### Clase 5: Introducción a la estadística descriptiva
+#### Análisis estadístico
+
+&lt;br&gt;
+
+#### Francisco Villarroel Riquelme (CICS- UDD) 
+#### 
+
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;img src="clase5_files/Comunicaciones_udd.png" width="30%" style="display: block; margin: auto;" /&gt;
+
+---
+class:  center, middle
+
+## El oficio del análisis estadístico e introducción a JASP
+
+
+&lt;img src="clase5_files/th-1264573742.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+---
+background-image: url(clase5_files/th-1264573742.jpg)
+background-size: 220px
+background-position: 97% 3%
+class:left, top
+
+## Por qué JASP?
+
+
+.left-column[
+
+### 1.Libre
+
+### 2.Gratis
+
+### 3.Sencillo
+
+### 4.Profundidad de análisis
+
+]
+
+
+
+.right-column[
+
+1. Al ser libre implica que puedes hacer mejoras y hay comunidad detrás que lo actualizan constantemente
+2. No debes pagar ninguna licencia
+3. Es igual o más sencillo que SPSS. Puedes usar las bases de datos de todos los démas programas acá (.csv, .xlxs, .RData, .stata, .dta, etc)
+4. Se puede hacer estadística descriptiva, inferencial, psicometría y estadística bayesiana avanzada 
+
+
+]
+---
+background-image: url(clase5_files/th-1264573742.jpg)
+background-size: 220px
+background-position: 97% 3%
+class: left, top
+
+## Comparación de programas estadísticos
+&lt;style type="text/css"&gt;
+.comparison-table {
+  font-size: 0.75em;
+  width: 100%;
+}
+.comparison-table th {
+  background-color: #b01333;
+  color: white;
+  padding: 6px 10px;
+}
+.comparison-table td {
+  padding: 5px 10px;
+  border-bottom: 1px solid #ddd;
+}
+.pro { color: #1a7a1a; font-weight: bold; }
+.con { color: #b01333; font-weight: bold; }
+&lt;/style&gt;
+
+&lt;table class="comparison-table"&gt;
+&lt;thead&gt;
+&lt;tr&gt;&lt;th&gt;Criterio&lt;/th&gt;&lt;th&gt;JASP&lt;/th&gt;&lt;th&gt;SPSS&lt;/th&gt;&lt;th&gt;STATA&lt;/th&gt;&lt;th&gt;R&lt;/th&gt;&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+  &lt;td&gt;&lt;b&gt;Precio&lt;/b&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;span class="pro"&gt;✔ Gratis&lt;/span&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;span class="con"&gt;✘ ~$100/mes&lt;/span&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;span class="con"&gt;✘ ~$500/año&lt;/span&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;span class="pro"&gt;✔ Gratis&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td&gt;&lt;b&gt;Curva de aprendizaje&lt;/b&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;span class="pro"&gt;✔ Baja&lt;/span&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;span class="pro"&gt;✔ Baja/Media&lt;/span&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;span class="con"&gt;✘ Media/Alta&lt;/span&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;span class="con"&gt;✘ Alta&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td&gt;&lt;b&gt;Interfaz&lt;/b&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;span class="pro"&gt;✔ Gráfica (GUI)&lt;/span&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;span class="pro"&gt;✔ Gráfica (GUI)&lt;/span&gt;&lt;/td&gt;
+  &lt;td&gt;Mixta&lt;/td&gt;
+  &lt;td&gt;&lt;span class="con"&gt;✘ Código&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td&gt;&lt;b&gt;Customización&lt;/b&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;span class="con"&gt;✘ Limitada&lt;/span&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;span class="con"&gt;✘ Limitada&lt;/span&gt;&lt;/td&gt;
+  &lt;td&gt;Media&lt;/td&gt;
+  &lt;td&gt;&lt;span class="pro"&gt;✔ Total&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td&gt;&lt;b&gt;Estadística bayesiana&lt;/b&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;span class="pro"&gt;✔ Nativa&lt;/span&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;span class="con"&gt;✘ No&lt;/span&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;span class="con"&gt;✘ Limitada&lt;/span&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;span class="pro"&gt;✔ Con paquetes&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td&gt;&lt;b&gt;Reproducibilidad&lt;/b&gt;&lt;/td&gt;
+  &lt;td&gt;Media&lt;/td&gt;
+  &lt;td&gt;Media&lt;/td&gt;
+  &lt;td&gt;&lt;span class="pro"&gt;✔ Alta&lt;/span&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;span class="pro"&gt;✔ Muy alta&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td&gt;&lt;b&gt;Formatos compatibles&lt;/b&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;span class="pro"&gt;✔ Múltiples&lt;/span&gt;&lt;/td&gt;
+  &lt;td&gt;Propietario&lt;/td&gt;
+  &lt;td&gt;Propietario&lt;/td&gt;
+  &lt;td&gt;&lt;span class="pro"&gt;✔ Múltiples&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;br&gt;
+&lt;br&gt;
+
+&gt; 💡 **Para este curso:** JASP combina lo mejor de ambos mundos — accesibilidad de SPSS con profundidad analítica similar a R, sin costo.
+
+
+---
+class: inverse, middle, left
+
+### Pasos para analizar datos
+
+---
+background-image: url(clase5_files/th-1264573742.jpg)
+background-size: 220px
+background-position: 97% 3%
+class: left, top
+
+## ¿Qué necesito para analizar una encuesta?
+
+.pull-left[
+### 1. Una base de datos
+- El archivo con las respuestas de los encuestados
+- Puede estar en distintos formatos: `.csv`, `.xlsx`, `.sav`, `.dta`, `.RData`
+- **Regla de oro:** una fila = una persona, una columna = una variable
+
+### 2. Un libro de códigos
+- El "diccionario" de tu base de datos
+- Explica qué significa cada variable y sus valores
+- Sin él, los números no tienen sentido
+]
+
+.pull-right[
+###  3. Un plan de análisis
+- ¿Qué quiero investigar o responder?
+- ¿Qué variables necesito para eso?
+- ¿Qué tipo de variables son? → ¿Qué análisis puedo hacer?
+
+&lt;br&gt;
+&lt;style type="text/css"&gt;
+.highlight-box {
+  background-color: #f0f4ff;
+  border-left: 4px solid #085e9f;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+&lt;/style&gt;
+
+&lt;div class="highlight-box"&gt;
+⚠️ Sin estos tres elementos, el análisis estadístico carece de sentido interpretativo. No basta con correr números — hay que entender qué representan.
+&lt;/div&gt;
+]
+
+---
+background-image: url(clase5_files/th-1264573742.jpg)
+background-size: 220px
+background-position: 97% 3%
+class: left, top
+
+## La base de datos: cómo leerla
+
+.left-column[
+### Formatos comunes
+- `.csv` ← universal
+- `.xlsx` ← Excel
+- `.sav` ← SPSS
+- `.dta` ← STATA
+- `.RData` ← R
+
+&lt;br&gt;
+**JASP lee todos estos formatos**
+]
+
+.right-column[
+### Lógica de una base de datos transversal
+&lt;style type="text/css"&gt;
+.data-table {
+  font-size: 0.78em;
+  border-collapse: collapse;
+  width: 100%;
+}
+.data-table th {
+  background-color: #085e9f;
+  color: white;
+  padding: 5px 8px;
+  text-align: center;
+}
+.data-table td {
+  padding: 4px 8px;
+  border: 1px solid #black;
+  text-align: center;
+}
+.data-table tr:nth-child(even) { background-color: #f2f2f2; }
+.row-label { background-color: #ffeaea !important; font-weight: bold; }
+.col-label { background-color: #e8f0ff !important; font-weight: bold; }
+&lt;/style&gt;
+
+&lt;table class="data-table"&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+  &lt;th&gt;id&lt;/th&gt;
+  &lt;th class="col-label"&gt;p1_edad&lt;/th&gt;
+  &lt;th class="col-label"&gt;p2_sexo&lt;/th&gt;
+  &lt;th class="col-label"&gt;p3_confianza_gob&lt;/th&gt;
+  &lt;th class="col-label"&gt;p4_voto&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;&lt;td class="row-label"&gt;1&lt;/td&gt;&lt;td&gt;34&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class="row-label"&gt;2&lt;/td&gt;&lt;td&gt;52&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class="row-label"&gt;3&lt;/td&gt;&lt;td&gt;28&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class="row-label"&gt;4&lt;/td&gt;&lt;td&gt;61&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;br&gt;
+
+- 🟥 Cada **fila** = una persona encuestada
+- 🟦 Cada **columna** = una variable (generalmente una pregunta)
+- Los valores son **numéricos** → necesitas el libro de códigos para interpretarlos
+- `.csv` es el formato más **universal e interoperable** entre programas
+]
+
+---
+background-image: url(clase5_files/th-1264573742.jpg)
+background-size: 220px
+background-position: 97% 3%
+class: left, top
+
+### El libro de códigos: el diccionario de tus datos
+
+.pull-left[
+#### ¿Qué es?
+Un documento que describe **cada variable** de la base de datos:
+- Nombre de la variable (como aparece en la base)
+- La pregunta original del cuestionario
+- Los valores posibles y su significado
+- El tipo de variable
+
+#### ¿Por qué importa?
+Sin él, el valor `2` en la columna `p2_sexo` podría significar cualquier cosa. El libro de códigos te dice que `1 = Hombre` y `2 = Mujer`.
+]
+
+.pull-right[
+#### Ejemplo de libro de códigos
+&lt;style type="text/css"&gt;
+.codebook-table {
+  font-size: 0.72em;
+  border-collapse: collapse;
+  width: 100%;
+}
+.codebook-table th {
+  background-color: #b01333;
+  color: white;
+  padding: 5px 8px;
+}
+.codebook-table td {
+  padding: 4px 7px;
+  border: 1px solid #ddd;
+  vertical-align: top;
+}
+.codebook-table tr:nth-child(even) { background-color: #fdf2f2; }
+&lt;/style&gt;
+
+&lt;table class="codebook-table"&gt;
+&lt;thead&gt;
+&lt;tr&gt;&lt;th&gt;Variable&lt;/th&gt;&lt;th&gt;Pregunta&lt;/th&gt;&lt;th&gt;Valores&lt;/th&gt;&lt;th&gt;Tipo&lt;/th&gt;&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+  &lt;td&gt;&lt;code&gt;p1_edad&lt;/code&gt;&lt;/td&gt;
+  &lt;td&gt;¿Cuántos años tiene usted?&lt;/td&gt;
+  &lt;td&gt;18 – 99&lt;/td&gt;
+  &lt;td&gt;Continua&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td&gt;&lt;code&gt;p2_sexo&lt;/code&gt;&lt;/td&gt;
+  &lt;td&gt;Sexo del entrevistado&lt;/td&gt;
+  &lt;td&gt;1 = Hombre&lt;br&gt;2 = Mujer&lt;/td&gt;
+  &lt;td&gt;Nominal&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td&gt;&lt;code&gt;p3_confianza_gob&lt;/code&gt;&lt;/td&gt;
+  &lt;td&gt;¿Cuánta confianza tiene en el gobierno?&lt;/td&gt;
+  &lt;td&gt;1 = Ninguna&lt;br&gt;2 = Poca&lt;br&gt;3 = Algo&lt;br&gt;4 = Mucha&lt;/td&gt;
+  &lt;td&gt;Ordinal&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td&gt;&lt;code&gt;p4_voto&lt;/code&gt;&lt;/td&gt;
+  &lt;td&gt;¿Votó usted en las últimas elecciones?&lt;/td&gt;
+  &lt;td&gt;1 = Sí&lt;br&gt;2 = No&lt;br&gt;3 = NS/NR&lt;/td&gt;
+  &lt;td&gt;Nominal&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+
+---
+background-image: url(clase5_files/th-1264573742.jpg)
+background-size: 220px
+background-position: 97% 3%
+class: left, top
+
+## Tener un plan: saber qué quiero investigar
+
+.pull-left[
+### Paso 1: Define tu pregunta
+¿Qué quiero saber? Ejemplo:
+&gt; *"¿Los jóvenes confían menos en el gobierno que los adultos mayores?"*
+
+### Paso 2: Identifica tus variables
+- **Variable dependiente:** `p3_confianza_gob`
+- **Variable independiente:** `p1_edad` (o tramo etario)
+
+]
+
+.pull-right[
+### Paso 3: ¿Qué tipo de variables son?
+&lt;style type="text/css"&gt;
+.type-table {
+  font-size: 0.78em;
+  border-collapse: collapse;
+  width: 100%;
+}
+.type-table th {
+  background-color: #085e9f;
+  color: white;
+  padding: 5px 8px;
+}
+.type-table td {
+  padding: 4px 8px;
+  border: 1px solid #ddd;
+}
+&lt;/style&gt;
+
+&lt;table class="type-table"&gt;
+&lt;thead&gt;
+&lt;tr&gt;&lt;th&gt;Tipo&lt;/th&gt;&lt;th&gt;Descripción&lt;/th&gt;&lt;th&gt;Ejemplo&lt;/th&gt;&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;Nominal&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Categorías sin orden&lt;/td&gt;&lt;td&gt;Sexo, región&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;Ordinal&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Categorías con orden&lt;/td&gt;&lt;td&gt;Escala Likert&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;b&gt;Continua&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Valores numéricos&lt;/td&gt;&lt;td&gt;Edad, ingreso&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+
+
+---
+class: middle, left
+
+
+### Paso 4: ¿Qué análisis puedo hacer?
+&lt;style type="text/css"&gt;
+.analysis-box {
+  font-size: 0.78em;
+  background: #f8f8f8;
+  border-left: 4px solid #b01333;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border-radius: 3px;
+}
+&lt;/style&gt;
+
+&lt;div class="analysis-box"&gt;
+&lt;b&gt;Variable nominal/ordinal →&lt;/b&gt;&lt;br&gt;
+Frecuencias, porcentajes, moda, tablas cruzadas
+&lt;/div&gt;
+
+&lt;div class="analysis-box"&gt;
+&lt;b&gt;Variable continua →&lt;/b&gt;&lt;br&gt;
+Media, mediana, desviación estándar, histogramas
+&lt;/div&gt;
+
+&lt;div class="analysis-box"&gt;
+&lt;b&gt;Nominal × Continua →&lt;/b&gt;&lt;br&gt;
+Comparación de medias (t-test, ANOVA)
+&lt;/div&gt;
+
+&lt;div class="analysis-box"&gt;
+&lt;b&gt;Ordinal × Ordinal →&lt;/b&gt;&lt;br&gt;
+Correlación de Spearman, tablas cruzadas
+&lt;/div&gt;
+
+&lt;br&gt;
+&gt; 🎯 El tipo de variable **determina** el análisis posible. Elegir mal el análisis produce resultados inválidos.
+
+---
+class: middle, left
+
+### Los pasos que veremos hoy:
+
+
+* Entender la interfaz de JASP
+* Cómo cargar datos
+* Entender qué variables queremos y qué singifica cada cosa
+* Limpiar bases de datos 
+
+
+
+---
+class: inversed, center, middle
+background-image: url(https://user-images.githubusercontent.com/163582/45438104-ea200600-b67b-11e8-80fa-d9f2a99a03b0.png)
+background-size: 80px
+background-position: 50% 90%
+
+# ¡Gracias!
+
+
+###fvillarroelr@udd.cl
+
+Slide creado con el paquete [**xaringan**](https://github.com/yihui/xaringan).
+
+
+El  chakra viene de [remark.js](https://remarkjs.com), [**knitr**](https://yihui.org/knitr/), y [R Markdown](https://rmarkdown.rstudio.com).
+Este slide fue creado por [**xaringan**](https://github.com/yihui/xaringan) y [**XaringanThemer**](https://pkg.garrickadenbuie.com/xaringanthemer/index.html)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "slideNumberFormat": "%current%",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "ratio": "16:9",
+  "countIncrementalSlides": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+(function(time) {
+  var d2 = function(number) {
+    return ('0' + number).slice(-2); // left-pad 0 to minutes/seconds
+  },
+
+  time_format = function(total) {
+    var secs = Math.abs(total) / 1000;
+    var h = Math.floor(secs / 3600);
+    var m = Math.floor(secs % 3600 / 60);
+    var s = Math.round(secs % 60);
+    var res = d2(m) + ':' + d2(s);
+    if (h > 0) res = h + ':' + res;
+    return res;  // [hh:]mm:ss
+  },
+
+  slide_number_div = function(i) {
+    return document.getElementsByClassName('remark-slide-number').item(i);
+  },
+
+  current_page_number = function(i) {
+    return slide_number_div(i).firstChild.textContent;  // text "i / N"
+  };
+
+  var timer = document.createElement('span'); timer.id = 'slide-time-left';
+  var time_left = time, k = slideshow.getCurrentSlideIndex(),
+      last_page_number = current_page_number(k);
+
+  setInterval(function() {
+    time_left = time_left - 1000;
+    timer.innerHTML = ' ' + time_format(time_left);
+    if (time_left < 0) timer.style.color = 'red';
+  }, 1000);
+
+  slide_number_div(k).appendChild(timer);
+
+  slideshow.on('showSlide', function(slide) {
+    var i = slide.getSlideIndex(), n = current_page_number(i);
+    // reset timer when a new slide is shown and the page number is changed
+    if (last_page_number !== n) {
+      time_left = time; last_page_number = n;
+      timer.innerHTML = ' ' + time_format(time); timer.style.color = null;
+    }
+    slide_number_div(i).appendChild(timer);
+  });
+})(180000);
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
