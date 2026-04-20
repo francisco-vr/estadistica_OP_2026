@@ -1,0 +1,638 @@
+---
+title: "Análisis Estadístico y Opinión Pública"
+author: 
+  - "Francisco Villarroel Riquelme"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+    seal: false
+---
+class: left, middle, bg_opinon
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  primary_color = "#b01333",
+  secondary_color = "#085e9f",
+  inverse_header_color = "#FFFFFF"
+)
+```
+
+```{css, echo=F}
+.bg_opinon {
+  position: relative;
+  z-index: 1;
+}
+.bg_opinon::before {
+  content: "";
+  background-image: url('https://www.pewresearch.org/wp-content/uploads/2022/10/3-header_howPollingWorks.jpg');
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0px; right: 0px; bottom: 0px; left: 0px;
+  opacity: 0.15;
+  z-index: -1;
+}
+
+.definition-box {
+  background: #fdecea;
+  border-left: 5px solid #b01333;
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin: 10px 0;
+  font-size: 0.88em;
+}
+.highlight-box {
+  background: #eaf2fb;
+  border: 2px solid #085e9f;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.warning-box {
+  background: #fef9e7;
+  border-left: 5px solid #f39c12;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.three-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 2px 8px rgba(176,19,51,0.12);
+  font-size: 0.84em;
+}
+.card-red   { border-top: 4px solid #b01333; }
+.card-blue  { border-top: 4px solid #085e9f; }
+.card-orange{ border-top: 4px solid #e67e22; }
+.card-green { border-top: 4px solid #1e8449; }
+
+.badge {
+  display: inline-block;
+  background: #b01333;
+  color: white;
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 0.78em;
+  font-weight: bold;
+  margin-right: 6px;
+}
+.badge-blue  { background: #085e9f; }
+.badge-green { background: #1e8449; }
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  gap: 12px;
+}
+.step-num {
+  background: #b01333;
+  color: white;
+  border-radius: 50%;
+  width: 28px; height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+  font-size: 0.9em;
+}
+.footnote-small {
+  font-size: 0.68em;
+  color: #777;
+  border-top: 1px solid #DDD;
+  padding-top: 6px;
+  margin-top: 6px;
+}
+table { font-size: 0.82em; width: 100%; border-collapse: collapse; }
+th { background: #b01333; color: white; padding: 7px 10px; text-align: left; }
+td { padding: 6px 10px; border-bottom: 1px solid #e0e0e0; }
+tr:nth-child(even) { background: #fdf3f4; }
+
+blockquote {
+  border-left: 4px solid #085e9f;
+  background: #eaf2fb;
+  padding: 10px 16px;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: #333;
+  margin: 10px 0;
+  font-size: 0.90em;
+}
+
+h1, h2, h3 { color: #b01333; }
+```
+
+---
+class: left, middle, bg_opinon
+
+# Análisis Estadístico y Opinión Pública
+## Clase 7: Estadística Bivariada — Tablas Cruzadas
+
+**Francisco Villarroel Riquelme** | CICS — UDD | `r Sys.Date()`
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# ¿Qué veremos hoy?
+
+.three-col[
+.card.card-red[
+**¿Qué son las tablas cruzadas?**
+
+Definición, estructura y tipos de variables que pueden analizarse.
+]
+.card.card-blue[
+**Análisis clásicos**
+
+Ejemplos típicos de uso en opinión pública e investigación social.
+]
+.card.card-orange[
+**Cómo interpretar**
+
+Lectura por filas, por columnas y totales marginales.
+]
+]
+
+<br>
+
+.highlight-box[
+**Objetivo central:** Al terminar la clase podrás construir, leer e interpretar una tabla cruzada, y decidir si la relación entre dos variables es estadísticamente significativa usando el test de Chi-cuadrado (χ²).
+]
+
+---
+class: inverse, center, middle
+
+# Parte 1: Tablas de Contingencia
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# ¿Qué es una Tabla de Contingencia?
+
+.definition-box[
+Una **tabla de contingencia** (o tabla cruzada) es una herramienta estadística que organiza la frecuencia conjunta de **dos o más variables categóricas** en una matriz de filas y columnas.
+]
+
+.two-col[
+.card.card-red[
+**¿Para qué sirve?**
+- Describir la distribución conjunta de dos variables
+- Detectar patrones de asociación
+- Base para pruebas de independencia estadística
+]
+.card.card-blue[
+**¿Qué tipo de variables?**
+- Dos variables **cualitativas** (nominal u ordinal)
+- Una cualitativa + una cuantitativa **categorizada**
+- Ejemplos: sexo × preferencia; edad × medio informativo
+]
+]
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Anatomía de una Tabla Cruzada
+
+Ejemplo: ¿Leyó el diario en los últimos 3 días? (por género)
+
+| | **Femenino** | **Masculino** | **Total fila** |
+|---|---|---|---|
+| **Sí** | 30 | 20 | **50** |
+| **No** | 20 | 30 | **50** |
+| **Total col.** | **50** | **50** | **100** |
+
+<br>
+
+.three-col[
+.card.card-red[
+**Celdas internas**  
+Frecuencias conjuntas de ambas variables
+]
+.card.card-blue[
+**Marginales de columna**  
+Total de cada categoría de la variable en columnas
+]
+.card.card-orange[
+**Marginales de fila**  
+Total de cada categoría de la variable en filas
+]
+]
+
+---
+class: inverse, center, middle
+
+# Parte 2: Análisis clásicos con Tablas Cruzadas
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Usos Clásicos en Opinión Pública
+
+Las tablas cruzadas son el caballo de batalla de la investigación con encuestas. Algunos análisis estándar:
+
+.two-col[
+.card.card-red[
+**🗳️ Voto × Características sociales**  
+- ¿Difiere la intención de voto según nivel educativo?
+- ¿Varía la aprobación presidencial según región?
+]
+.card.card-blue[
+**📺 Consumo de medios × Edad/Género**  
+- ¿Los jóvenes prefieren internet y los adultos la TV?
+- ¿Las mujeres consumen más prensa escrita que los hombres?
+]
+]
+
+.two-col[
+.card.card-green[
+** Confianza institucional × Nivel educativo**  
+- ¿A mayor educación, menor confianza en el Congreso?
+- ¿Varía la confianza en el gobierno según partido?
+]
+.card.card-orange[
+**Opinión sobre política × Ideología**  
+- ¿La identificación izquierda/derecha predice posiciones en políticas sociales?
+]
+]
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Ejemplo clásico: Medio informativo y grupo etario
+
+```{r ejemplo-datos, echo=FALSE}
+library(knitr)
+# Datos simulados
+set.seed(42)
+data_ej <- data.frame(
+  Edad = rep(c("18-35", "36-55", "56+"), times = c(120, 130, 100)),
+  Medio = c(
+    sample(c("TV", "Internet", "Radio", "Prensa"), 120, replace=TRUE, prob=c(0.20, 0.60, 0.10, 0.10)),
+    sample(c("TV", "Internet", "Radio", "Prensa"), 130, replace=TRUE, prob=c(0.35, 0.35, 0.15, 0.15)),
+    sample(c("TV", "Internet", "Radio", "Prensa"), 100, replace=TRUE, prob=c(0.50, 0.15, 0.20, 0.15))
+  )
+)
+tabla_ej <- table(data_ej$Edad, data_ej$Medio)
+kable(addmargins(tabla_ej), caption = "Medio informativo preferido según grupo etario (n=350)")
+```
+
+.highlight-box[
+**¿Qué podemos ver a primera vista?** El grupo 18–35 concentra más uso de Internet, mientras que el grupo 56+ tiende más hacia la televisión. Pero, ¿es esta diferencia **estadísticamente significativa**? Lo veremos más adelante.
+]
+
+---
+class: inverse, center, middle
+
+# Parte 3: Cómo Interpretar una Tabla Cruzada
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Dos estrategias de lectura
+
+.two-col[
+.card.card-red[
+**Lectura por FILAS**
+
+Se calcula el porcentaje de cada celda respecto al **total de su fila**.
+
+→ Responde: *"Del total de [categoría de fila], ¿qué proporción cae en cada columna?"*
+
+**Útil cuando la variable de fila es la independiente** (ej. género como predictor).
+]
+.card.card-blue[
+**Lectura por COLUMNAS**
+
+Se calcula el porcentaje de cada celda respecto al **total de su columna**.
+
+→ Responde: *"Del total de [categoría de columna], ¿qué proporción proviene de cada fila?"*
+
+**Útil cuando la variable de columna es la independiente** (ej. tipo de medio como predictor).
+]
+]
+
+.warning-box[
+⚠️ **Regla práctica:** Los porcentajes van en la dirección de la variable **independiente** (la causa hipotética). Si el género "explica" el consumo de medios → porcentaje por filas (género en filas).
+]
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Lectura por FILAS — Paso a paso
+
+**Pregunta:** ¿Varía el medio informativo preferido según el grupo etario?
+
+```{r por-filas, echo=FALSE}
+tabla_pct_fila <- prop.table(tabla_ej, margin = 1) * 100
+kable(round(addmargins(tabla_pct_fila, margin = 2), 1),
+      caption = "Porcentaje por fila (% dentro de cada grupo etario)")
+```
+
+.definition-box[
+**¿Cómo se lee?**  
+Del grupo **18–35**: el ~58% prefiere Internet, ~21% TV, ~11% Radio y ~10% Prensa.  
+Del grupo **56+**: el ~50% prefiere TV, sólo ~15% Internet.  
+→ Se compara **horizontalmente** para ver si los perfiles difieren entre grupos etarios.
+]
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Lectura por COLUMNAS — Paso a paso
+
+**Pregunta:** ¿De qué grupos etarios provienen los usuarios de cada medio?
+
+```{r por-columnas, echo=FALSE}
+tabla_pct_col <- prop.table(tabla_ej, margin = 2) * 100
+kable(round(addmargins(tabla_pct_col, margin = 1), 1),
+      caption = "Porcentaje por columna (% dentro de cada medio informativo)")
+```
+
+.definition-box[
+**¿Cómo se lee?**  
+De todos los usuarios de **Internet**: ~42% son jóvenes (18–35), ~39% adultos, sólo ~19% mayores.  
+De todos los usuarios de **TV**: los mayores de 56+ representan el porcentaje más alto.  
+→ Se compara **verticalmente** para ver la composición de cada medio.
+]
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Visualizando la tabla: gráfico de barras apiladas
+
+```{r barras-apiladas, fig.height=4, fig.width=9, echo=FALSE, out.width="90%", fig.align='center'}
+library(ggplot2)
+library(dplyr)
+
+data_plot <- as.data.frame(tabla_pct_fila) %>%
+  rename(Edad = Var1, Medio = Var2, Porcentaje = Freq)
+
+ggplot(data_plot, aes(x = Edad, y = Porcentaje, fill = Medio)) +
+  geom_bar(stat = "identity", position = "stack") +
+  scale_fill_manual(values = c("#b01333","#085e9f","#e67e22","#1e8449")) +
+  labs(title = "Medio informativo preferido según grupo etario (%)",
+       x = "Grupo etario", y = "Porcentaje (%)", fill = "Medio") +
+  theme_minimal(base_size = 13) +
+  theme(plot.title = element_text(color = "#b01333", face = "bold"))
+```
+
+---
+class: inverse, center, middle
+
+# Parte 4: Test de Chi-cuadrado (χ²)
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# ¿Por qué necesitamos una prueba estadística?
+
+.two-col[
+.card.card-red[
+**El problema**  
+Las diferencias que observamos en una tabla pueden deberse al **azar muestral**, no a una relación real entre las variables.
+
+Con muestras pequeñas, diferencias grandes pueden ser producto del azar.  
+Con muestras grandes, diferencias pequeñas pueden ser "reales".
+]
+.card.card-blue[
+**La solución: prueba de hipótesis**  
+Formulamos dos hipótesis:
+
+**H₀ (nula):** Las variables son **independientes** (no hay relación).  
+**H₁ (alternativa):** Las variables **están asociadas**.
+
+Luego calculamos qué tan probable es observar los datos que tenemos **si H₀ fuera verdadera**.
+]
+]
+
+.highlight-box[
+El **test de Chi-cuadrado (χ²)** es la prueba estándar para evaluar la independencia entre dos variables categóricas en una tabla de contingencia.
+]
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Lógica del Test Chi-cuadrado
+
+.step[
+.step-num[1]
+**Calcular frecuencias esperadas:** Si las variables fueran independientes, ¿cuántas observaciones esperaríamos en cada celda?
+
+$$E_{ij} = \frac{(\text{Total fila}_i) \times (\text{Total columna}_j)}{N}$$
+]
+
+.step[
+.step-num[2]
+**Calcular el estadístico χ²:** Sumar las diferencias entre lo observado y lo esperado en todas las celdas.
+
+$$\chi^2 = \sum \frac{(O_{ij} - E_{ij})^2}{E_{ij}}$$
+]
+
+.step[
+.step-num[3]
+**Obtener el valor p:** ¿Cuál es la probabilidad de obtener un χ² tan grande (o mayor) si H₀ fuera verdadera?
+]
+
+.step[
+.step-num[4]
+**Decidir:** Si p < 0.05 → rechazamos H₀ → hay evidencia de asociación entre las variables.
+]
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# ¿Qué es el Valor p?
+
+.definition-box[
+El **valor p** (o p-value) es la probabilidad de observar un resultado **igual o más extremo** que el obtenido, **asumiendo que H₀ es verdadera**.
+
+No es la probabilidad de que H₀ sea verdadera. Es la probabilidad de los **datos**, dado H₀.
+]
+
+.two-col[
+.card.card-green[
+**p ≥ 0.05**  
+No rechazamos H₀. Los datos son **compatibles** con la hipótesis de independencia. No podemos concluir que haya asociación con el nivel de confianza habitual.
+]
+.card.card-red[
+**p < 0.05**  
+Rechazamos H₀. La diferencia observada es **estadísticamente significativa**. Hay evidencia de asociación entre las variables (con un 95% de confianza).
+]
+]
+
+.warning-box[
+⚠️ **Ojo con la interpretación:** Significancia estadística ≠ importancia sustantiva. Una relación puede ser estadísticamente significativa pero irrelevante en términos prácticos (especialmente con n muy grande).
+]
+
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Interpretando el resultado
+
+```{r interpretacion, echo=FALSE}
+cat("Estadístico χ²:", round(chi_test$statistic, 3), "\n")
+cat("Grados de libertad:", chi_test$parameter, "\n")
+cat("Valor p:", round(chi_test$p.value, 4), "\n")
+
+if (chi_test$p.value < 0.05) {
+  cat("\n→ p < 0.05: Se rechaza H₀.\n")
+  cat("Conclusión: Existe una asociación estadísticamente significativa\n")
+  cat("entre el grupo etario y el medio informativo preferido.\n")
+} else {
+  cat("\n→ p ≥ 0.05: No se rechaza H₀.\n")
+  cat("Conclusión: No hay evidencia suficiente de asociación\n")
+  cat("entre el grupo etario y el medio informativo preferido.\n")
+}
+```
+
+.highlight-box[
+**Cómo reportarlo en un informe:**  
+*"Se encontró una asociación estadísticamente significativa entre el grupo etario y el medio informativo preferido (χ²(gl) = X.XX, p < 0.05). Los jóvenes de 18-35 años reportan mayor consumo de Internet, mientras que el grupo de 56 años o más concentra un mayor uso de televisión."*
+]
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Supuestos y limitaciones del Chi-cuadrado
+
+.two-col[
+.card.card-blue[
+**Supuestos que deben cumplirse**
+- Las observaciones son **independientes** entre sí
+- La frecuencia **esperada** en cada celda debe ser ≥ 5
+- Las variables son **categóricas** (nominales u ordinales)
+- Los datos provienen de una muestra **aleatoria**
+]
+.card.card-orange[
+**Limitaciones**
+- No mide la **fuerza** ni la **dirección** de la asociación (sólo si existe)
+- Sensible al **tamaño muestral**: con n grande casi todo resulta significativo
+- No aplica si hay celdas con frecuencia esperada < 5 → usar test exacto de Fisher
+]
+]
+
+.definition-box[
+**Para medir la fuerza de la asociación** se usan medidas complementarias:
+- **V de Cramér**: entre 0 y 1 (0 = sin asociación, 1 = asociación perfecta)
+- **Phi (ϕ)**: para tablas 2×2 específicamente
+]
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Resumen: Flujo de análisis con tablas cruzadas
+
+.step[
+.step-num[1]
+**Construir la tabla** con `table()` en R. Agregar marginales con `addmargins()`.
+]
+.step[
+.step-num[2]
+**Calcular porcentajes** con `prop.table()`: por filas (`margin=1`) o columnas (`margin=2`), según cuál sea la variable independiente.
+]
+.step[
+.step-num[3]
+**Visualizar** con un gráfico de barras apiladas o agrupadas para comunicar el patrón.
+]
+.step[
+.step-num[4]
+**Probar la independencia** con `chisq.test()`. Reportar χ², grados de libertad y valor p.
+]
+.step[
+.step-num[5]
+**Medir la fuerza** con V de Cramér (`assocstats()` del paquete `vcd`). Interpretar en contexto sustantivo.
+]
+
+---
+class: center, middle
+background-image: url(https://user-images.githubusercontent.com/163582/45438104-ea200600-b67b-11e8-80fa-d9f2a99a03b0.png)
+background-size: 80px
+background-position: 50% 90%
+
+# ¡Gracias!
+
+### fvillarroelr@udd.cl
+
+Slide creado con [**xaringan**](https://github.com/yihui/xaringan) y [**XaringanThemer**](https://pkg.garrickadenbuie.com/xaringanthemer/index.html)

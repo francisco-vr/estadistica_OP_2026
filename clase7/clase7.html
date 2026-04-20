@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Análisis Estadístico y Opinión Pública</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Francisco Villarroel Riquelme" />
+    <meta name="date" content="2026-04-19" />
+    <script src="clase7_files/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: left, middle, bg_opinon
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.bg_opinon {
+  position: relative;
+  z-index: 1;
+}
+.bg_opinon::before {
+  content: "";
+  background-image: url('https://www.pewresearch.org/wp-content/uploads/2022/10/3-header_howPollingWorks.jpg');
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0px; right: 0px; bottom: 0px; left: 0px;
+  opacity: 0.15;
+  z-index: -1;
+}
+
+.definition-box {
+  background: #fdecea;
+  border-left: 5px solid #b01333;
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin: 10px 0;
+  font-size: 0.88em;
+}
+.highlight-box {
+  background: #eaf2fb;
+  border: 2px solid #085e9f;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.warning-box {
+  background: #fef9e7;
+  border-left: 5px solid #f39c12;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.three-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 2px 8px rgba(176,19,51,0.12);
+  font-size: 0.84em;
+}
+.card-red   { border-top: 4px solid #b01333; }
+.card-blue  { border-top: 4px solid #085e9f; }
+.card-orange{ border-top: 4px solid #e67e22; }
+.card-green { border-top: 4px solid #1e8449; }
+
+.badge {
+  display: inline-block;
+  background: #b01333;
+  color: white;
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 0.78em;
+  font-weight: bold;
+  margin-right: 6px;
+}
+.badge-blue  { background: #085e9f; }
+.badge-green { background: #1e8449; }
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  gap: 12px;
+}
+.step-num {
+  background: #b01333;
+  color: white;
+  border-radius: 50%;
+  width: 28px; height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+  font-size: 0.9em;
+}
+.footnote-small {
+  font-size: 0.68em;
+  color: #777;
+  border-top: 1px solid #DDD;
+  padding-top: 6px;
+  margin-top: 6px;
+}
+table { font-size: 0.82em; width: 100%; border-collapse: collapse; }
+th { background: #b01333; color: white; padding: 7px 10px; text-align: left; }
+td { padding: 6px 10px; border-bottom: 1px solid #e0e0e0; }
+tr:nth-child(even) { background: #fdf3f4; }
+
+blockquote {
+  border-left: 4px solid #085e9f;
+  background: #eaf2fb;
+  padding: 10px 16px;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: #333;
+  margin: 10px 0;
+  font-size: 0.90em;
+}
+
+h1, h2, h3 { color: #b01333; }
+&lt;/style&gt;
+
+---
+class: left, middle, bg_opinon
+
+# Análisis Estadístico y Opinión Pública
+## Clase 7: Estadística Bivariada — Tablas Cruzadas
+
+**Francisco Villarroel Riquelme** | CICS — UDD | 2026-04-19
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# ¿Qué veremos hoy?
+
+.three-col[
+.card.card-red[
+**¿Qué son las tablas cruzadas?**
+
+Definición, estructura y tipos de variables que pueden analizarse.
+]
+.card.card-blue[
+**Análisis clásicos**
+
+Ejemplos típicos de uso en opinión pública e investigación social.
+]
+.card.card-orange[
+**Cómo interpretar**
+
+Lectura por filas, por columnas y totales marginales.
+]
+]
+
+&lt;br&gt;
+
+.highlight-box[
+**Objetivo central:** Al terminar la clase podrás construir, leer e interpretar una tabla cruzada, y decidir si la relación entre dos variables es estadísticamente significativa usando el test de Chi-cuadrado (χ²).
+]
+
+---
+class: inverse, center, middle
+
+# Parte 1: Tablas de Contingencia
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# ¿Qué es una Tabla de Contingencia?
+
+.definition-box[
+Una **tabla de contingencia** (o tabla cruzada) es una herramienta estadística que organiza la frecuencia conjunta de **dos o más variables categóricas** en una matriz de filas y columnas.
+]
+
+.two-col[
+.card.card-red[
+**¿Para qué sirve?**
+- Describir la distribución conjunta de dos variables
+- Detectar patrones de asociación
+- Base para pruebas de independencia estadística
+]
+.card.card-blue[
+**¿Qué tipo de variables?**
+- Dos variables **cualitativas** (nominal u ordinal)
+- Una cualitativa + una cuantitativa **categorizada**
+- Ejemplos: sexo × preferencia; edad × medio informativo
+]
+]
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Anatomía de una Tabla Cruzada
+
+Ejemplo: ¿Leyó el diario en los últimos 3 días? (por género)
+
+| | **Femenino** | **Masculino** | **Total fila** |
+|---|---|---|---|
+| **Sí** | 30 | 20 | **50** |
+| **No** | 20 | 30 | **50** |
+| **Total col.** | **50** | **50** | **100** |
+
+&lt;br&gt;
+
+.three-col[
+.card.card-red[
+**Celdas internas**  
+Frecuencias conjuntas de ambas variables
+]
+.card.card-blue[
+**Marginales de columna**  
+Total de cada categoría de la variable en columnas
+]
+.card.card-orange[
+**Marginales de fila**  
+Total de cada categoría de la variable en filas
+]
+]
+
+---
+class: inverse, center, middle
+
+# Parte 2: Análisis clásicos con Tablas Cruzadas
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Usos Clásicos en Opinión Pública
+
+Las tablas cruzadas son el caballo de batalla de la investigación con encuestas. Algunos análisis estándar:
+
+.two-col[
+.card.card-red[
+**🗳️ Voto × Características sociales**  
+- ¿Difiere la intención de voto según nivel educativo?
+- ¿Varía la aprobación presidencial según región?
+]
+.card.card-blue[
+**📺 Consumo de medios × Edad/Género**  
+- ¿Los jóvenes prefieren internet y los adultos la TV?
+- ¿Las mujeres consumen más prensa escrita que los hombres?
+]
+]
+
+.two-col[
+.card.card-green[
+** Confianza institucional × Nivel educativo**  
+- ¿A mayor educación, menor confianza en el Congreso?
+- ¿Varía la confianza en el gobierno según partido?
+]
+.card.card-orange[
+**Opinión sobre política × Ideología**  
+- ¿La identificación izquierda/derecha predice posiciones en políticas sociales?
+]
+]
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Ejemplo clásico: Medio informativo y grupo etario
+
+
+Table: Medio informativo preferido según grupo etario (n=350)
+
+|      | Internet| Prensa| Radio|  TV| Sum|
+|:-----|--------:|------:|-----:|---:|---:|
+|18-35 |       64|     18|     9|  29| 120|
+|36-55 |       42|     18|    23|  47| 130|
+|56+   |       17|     11|    10|  62| 100|
+|Sum   |      123|     47|    42| 138| 350|
+
+.highlight-box[
+**¿Qué podemos ver a primera vista?** El grupo 18–35 concentra más uso de Internet, mientras que el grupo 56+ tiende más hacia la televisión. Pero, ¿es esta diferencia **estadísticamente significativa**? Lo veremos más adelante.
+]
+
+---
+class: inverse, center, middle
+
+# Parte 3: Cómo Interpretar una Tabla Cruzada
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Dos estrategias de lectura
+
+.two-col[
+.card.card-red[
+**Lectura por FILAS**
+
+Se calcula el porcentaje de cada celda respecto al **total de su fila**.
+
+→ Responde: *"Del total de [categoría de fila], ¿qué proporción cae en cada columna?"*
+
+**Útil cuando la variable de fila es la independiente** (ej. género como predictor).
+]
+.card.card-blue[
+**Lectura por COLUMNAS**
+
+Se calcula el porcentaje de cada celda respecto al **total de su columna**.
+
+→ Responde: *"Del total de [categoría de columna], ¿qué proporción proviene de cada fila?"*
+
+**Útil cuando la variable de columna es la independiente** (ej. tipo de medio como predictor).
+]
+]
+
+.warning-box[
+⚠️ **Regla práctica:** Los porcentajes van en la dirección de la variable **independiente** (la causa hipotética). Si el género "explica" el consumo de medios → porcentaje por filas (género en filas).
+]
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Lectura por FILAS — Paso a paso
+
+**Pregunta:** ¿Varía el medio informativo preferido según el grupo etario?
+
+
+Table: Porcentaje por fila (% dentro de cada grupo etario)
+
+|      | Internet| Prensa| Radio|   TV| Sum|
+|:-----|--------:|------:|-----:|----:|---:|
+|18-35 |     53.3|   15.0|   7.5| 24.2| 100|
+|36-55 |     32.3|   13.8|  17.7| 36.2| 100|
+|56+   |     17.0|   11.0|  10.0| 62.0| 100|
+
+.definition-box[
+**¿Cómo se lee?**  
+Del grupo **18–35**: el ~58% prefiere Internet, ~21% TV, ~11% Radio y ~10% Prensa.  
+Del grupo **56+**: el ~50% prefiere TV, sólo ~15% Internet.  
+→ Se compara **horizontalmente** para ver si los perfiles difieren entre grupos etarios.
+]
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Lectura por COLUMNAS — Paso a paso
+
+**Pregunta:** ¿De qué grupos etarios provienen los usuarios de cada medio?
+
+
+Table: Porcentaje por columna (% dentro de cada medio informativo)
+
+|      | Internet| Prensa| Radio|    TV|
+|:-----|--------:|------:|-----:|-----:|
+|18-35 |     52.0|   38.3|  21.4|  21.0|
+|36-55 |     34.1|   38.3|  54.8|  34.1|
+|56+   |     13.8|   23.4|  23.8|  44.9|
+|Sum   |    100.0|  100.0| 100.0| 100.0|
+
+.definition-box[
+**¿Cómo se lee?**  
+De todos los usuarios de **Internet**: ~42% son jóvenes (18–35), ~39% adultos, sólo ~19% mayores.  
+De todos los usuarios de **TV**: los mayores de 56+ representan el porcentaje más alto.  
+→ Se compara **verticalmente** para ver la composición de cada medio.
+]
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Visualizando la tabla: gráfico de barras apiladas
+
+&lt;img src="clase7_files/figure-html/barras-apiladas-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, center, middle
+
+# Parte 4: Test de Chi-cuadrado (χ²)
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# ¿Por qué necesitamos una prueba estadística?
+
+.two-col[
+.card.card-red[
+**El problema**  
+Las diferencias que observamos en una tabla pueden deberse al **azar muestral**, no a una relación real entre las variables.
+
+Con muestras pequeñas, diferencias grandes pueden ser producto del azar.  
+Con muestras grandes, diferencias pequeñas pueden ser "reales".
+]
+.card.card-blue[
+**La solución: prueba de hipótesis**  
+Formulamos dos hipótesis:
+
+**H₀ (nula):** Las variables son **independientes** (no hay relación).  
+**H₁ (alternativa):** Las variables **están asociadas**.
+
+Luego calculamos qué tan probable es observar los datos que tenemos **si H₀ fuera verdadera**.
+]
+]
+
+.highlight-box[
+El **test de Chi-cuadrado (χ²)** es la prueba estándar para evaluar la independencia entre dos variables categóricas en una tabla de contingencia.
+]
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Lógica del Test Chi-cuadrado
+
+.step[
+.step-num[1]
+**Calcular frecuencias esperadas:** Si las variables fueran independientes, ¿cuántas observaciones esperaríamos en cada celda?
+
+`$$E_{ij} = \frac{(\text{Total fila}_i) \times (\text{Total columna}_j)}{N}$$`
+]
+
+.step[
+.step-num[2]
+**Calcular el estadístico χ²:** Sumar las diferencias entre lo observado y lo esperado en todas las celdas.
+
+`$$\chi^2 = \sum \frac{(O_{ij} - E_{ij})^2}{E_{ij}}$$`
+]
+
+.step[
+.step-num[3]
+**Obtener el valor p:** ¿Cuál es la probabilidad de obtener un χ² tan grande (o mayor) si H₀ fuera verdadera?
+]
+
+.step[
+.step-num[4]
+**Decidir:** Si p &lt; 0.05 → rechazamos H₀ → hay evidencia de asociación entre las variables.
+]
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# ¿Qué es el Valor p?
+
+.definition-box[
+El **valor p** (o p-value) es la probabilidad de observar un resultado **igual o más extremo** que el obtenido, **asumiendo que H₀ es verdadera**.
+
+No es la probabilidad de que H₀ sea verdadera. Es la probabilidad de los **datos**, dado H₀.
+]
+
+.two-col[
+.card.card-green[
+**p ≥ 0.05**  
+No rechazamos H₀. Los datos son **compatibles** con la hipótesis de independencia. No podemos concluir que haya asociación con el nivel de confianza habitual.
+]
+.card.card-red[
+**p &lt; 0.05**  
+Rechazamos H₀. La diferencia observada es **estadísticamente significativa**. Hay evidencia de asociación entre las variables (con un 95% de confianza).
+]
+]
+
+.warning-box[
+⚠️ **Ojo con la interpretación:** Significancia estadística ≠ importancia sustantiva. Una relación puede ser estadísticamente significativa pero irrelevante en términos prácticos (especialmente con n muy grande).
+]
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Aplicando Chi-cuadrado en R
+
+
+``` r
+# Test de chi-cuadrado sobre la tabla de ejemplo
+chi_test &lt;- chisq.test(tabla_ej)
+print(chi_test)
+```
+
+```
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  tabla_ej
+## X-squared = 47.872, df = 6, p-value = 1.253e-08
+```
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Interpretando el resultado
+
+
+```
+## Estadístico χ²: 47.872
+```
+
+```
+## Grados de libertad: 6
+```
+
+```
+## Valor p: 0
+```
+
+```
+## 
+## → p &lt; 0.05: Se rechaza H₀.
+## Conclusión: Existe una asociación estadísticamente significativa
+## entre el grupo etario y el medio informativo preferido.
+```
+
+.highlight-box[
+**Cómo reportarlo en un informe:**  
+*"Se encontró una asociación estadísticamente significativa entre el grupo etario y el medio informativo preferido (χ²(gl) = X.XX, p &lt; 0.05). Los jóvenes de 18-35 años reportan mayor consumo de Internet, mientras que el grupo de 56 años o más concentra un mayor uso de televisión."*
+]
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Supuestos y limitaciones del Chi-cuadrado
+
+.two-col[
+.card.card-blue[
+**Supuestos que deben cumplirse**
+- Las observaciones son **independientes** entre sí
+- La frecuencia **esperada** en cada celda debe ser ≥ 5
+- Las variables son **categóricas** (nominales u ordinales)
+- Los datos provienen de una muestra **aleatoria**
+]
+.card.card-orange[
+**Limitaciones**
+- No mide la **fuerza** ni la **dirección** de la asociación (sólo si existe)
+- Sensible al **tamaño muestral**: con n grande casi todo resulta significativo
+- No aplica si hay celdas con frecuencia esperada &lt; 5 → usar test exacto de Fisher
+]
+]
+
+.definition-box[
+**Para medir la fuerza de la asociación** se usan medidas complementarias:
+- **V de Cramér**: entre 0 y 1 (0 = sin asociación, 1 = asociación perfecta)
+- **Phi (ϕ)**: para tablas 2×2 específicamente
+]
+
+---
+background-image: url(clase10_files/Comunicaciones_udd.png)
+background-size: 150px
+background-position: 97% 97%
+class: left, top
+
+# Resumen: Flujo de análisis con tablas cruzadas
+
+.step[
+.step-num[1]
+**Construir la tabla** con `table()` en R. Agregar marginales con `addmargins()`.
+]
+.step[
+.step-num[2]
+**Calcular porcentajes** con `prop.table()`: por filas (`margin=1`) o columnas (`margin=2`), según cuál sea la variable independiente.
+]
+.step[
+.step-num[3]
+**Visualizar** con un gráfico de barras apiladas o agrupadas para comunicar el patrón.
+]
+.step[
+.step-num[4]
+**Probar la independencia** con `chisq.test()`. Reportar χ², grados de libertad y valor p.
+]
+.step[
+.step-num[5]
+**Medir la fuerza** con V de Cramér (`assocstats()` del paquete `vcd`). Interpretar en contexto sustantivo.
+]
+
+---
+class: center, middle
+background-image: url(https://user-images.githubusercontent.com/163582/45438104-ea200600-b67b-11e8-80fa-d9f2a99a03b0.png)
+background-size: 80px
+background-position: 50% 90%
+
+# ¡Gracias!
+
+### fvillarroelr@udd.cl
+
+Slide creado con [**xaringan**](https://github.com/yihui/xaringan) y [**XaringanThemer**](https://pkg.garrickadenbuie.com/xaringanthemer/index.html)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "slideNumberFormat": "%current%",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "ratio": "16:9",
+  "countIncrementalSlides": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
