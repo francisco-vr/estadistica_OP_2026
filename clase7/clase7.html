@@ -4,7 +4,7 @@
     <title>Análisis Estadístico y Opinión Pública</title>
     <meta charset="utf-8" />
     <meta name="author" content="Francisco Villarroel Riquelme" />
-    <meta name="date" content="2026-04-19" />
+    <meta name="date" content="2026-04-20" />
     <script src="clase7_files/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -143,10 +143,10 @@ class: left, middle, bg_opinon
 # Análisis Estadístico y Opinión Pública
 ## Clase 7: Estadística Bivariada — Tablas Cruzadas
 
-**Francisco Villarroel Riquelme** | CICS — UDD | 2026-04-19
+**Francisco Villarroel Riquelme** | CICS — UDD | 2026-04-20
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -183,7 +183,7 @@ class: inverse, center, middle
 # Parte 1: Tablas de Contingencia
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -210,7 +210,7 @@ Una **tabla de contingencia** (o tabla cruzada) es una herramienta estadística 
 ]
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -248,7 +248,7 @@ class: inverse, center, middle
 # Parte 2: Análisis clásicos con Tablas Cruzadas
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -283,7 +283,7 @@ Las tablas cruzadas son el caballo de batalla de la investigación con encuestas
 ]
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -310,7 +310,7 @@ class: inverse, center, middle
 # Parte 3: Cómo Interpretar una Tabla Cruzada
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -343,7 +343,7 @@ Se calcula el porcentaje de cada celda respecto al **total de su columna**.
 ]
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -369,7 +369,7 @@ Del grupo **56+**: el ~50% prefiere TV, sólo ~15% Internet.
 ]
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -396,7 +396,7 @@ De todos los usuarios de **TV**: los mayores de 56+ representan el porcentaje m�
 ]
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -411,7 +411,7 @@ class: inverse, center, middle
 # Parte 4: Test de Chi-cuadrado (χ²)
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -442,7 +442,7 @@ El **test de Chi-cuadrado (χ²)** es la prueba estándar para evaluar la indepe
 ]
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -474,7 +474,7 @@ class: left, top
 ]
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -502,31 +502,9 @@ Rechazamos H₀. La diferencia observada es **estadísticamente significativa**.
 ⚠️ **Ojo con la interpretación:** Significancia estadística ≠ importancia sustantiva. Una relación puede ser estadísticamente significativa pero irrelevante en términos prácticos (especialmente con n muy grande).
 ]
 
----
-background-image: url(clase10_files/Comunicaciones_udd.png)
-background-size: 150px
-background-position: 97% 97%
-class: left, top
-
-# Aplicando Chi-cuadrado en R
-
-
-``` r
-# Test de chi-cuadrado sobre la tabla de ejemplo
-chi_test &lt;- chisq.test(tabla_ej)
-print(chi_test)
-```
-
-```
-## 
-## 	Pearson's Chi-squared test
-## 
-## data:  tabla_ej
-## X-squared = 47.872, df = 6, p-value = 1.253e-08
-```
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -559,7 +537,7 @@ class: left, top
 ]
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -589,7 +567,7 @@ class: left, top
 ]
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top

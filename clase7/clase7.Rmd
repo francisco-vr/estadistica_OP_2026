@@ -167,7 +167,7 @@ class: left, middle, bg_opinon
 **Francisco Villarroel Riquelme** | CICS — UDD | `r Sys.Date()`
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -204,7 +204,7 @@ class: inverse, center, middle
 # Parte 1: Tablas de Contingencia
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -231,7 +231,7 @@ Una **tabla de contingencia** (o tabla cruzada) es una herramienta estadística 
 ]
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -269,7 +269,7 @@ class: inverse, center, middle
 # Parte 2: Análisis clásicos con Tablas Cruzadas
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -304,7 +304,7 @@ Las tablas cruzadas son el caballo de batalla de la investigación con encuestas
 ]
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -337,7 +337,7 @@ class: inverse, center, middle
 # Parte 3: Cómo Interpretar una Tabla Cruzada
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -370,7 +370,7 @@ Se calcula el porcentaje de cada celda respecto al **total de su columna**.
 ]
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -393,7 +393,7 @@ Del grupo **56+**: el ~50% prefiere TV, sólo ~15% Internet.
 ]
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -416,7 +416,7 @@ De todos los usuarios de **TV**: los mayores de 56+ representan el porcentaje m�
 ]
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -445,7 +445,7 @@ class: inverse, center, middle
 # Parte 4: Test de Chi-cuadrado (χ²)
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -476,7 +476,7 @@ El **test de Chi-cuadrado (χ²)** es la prueba estándar para evaluar la indepe
 ]
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -508,7 +508,7 @@ $$\chi^2 = \sum \frac{(O_{ij} - E_{ij})^2}{E_{ij}}$$
 ]
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -538,7 +538,7 @@ Rechazamos H₀. La diferencia observada es **estadísticamente significativa**.
 
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -546,6 +546,9 @@ class: left, top
 # Interpretando el resultado
 
 ```{r interpretacion, echo=FALSE}
+
+chi_test <- chisq.test(tabla_ej)
+
 cat("Estadístico χ²:", round(chi_test$statistic, 3), "\n")
 cat("Grados de libertad:", chi_test$parameter, "\n")
 cat("Valor p:", round(chi_test$p.value, 4), "\n")
@@ -567,7 +570,7 @@ if (chi_test$p.value < 0.05) {
 ]
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
@@ -597,7 +600,7 @@ class: left, top
 ]
 
 ---
-background-image: url(clase10_files/Comunicaciones_udd.png)
+background-image: url(clase7_files/Comunicaciones_udd.png)
 background-size: 150px
 background-position: 97% 97%
 class: left, top
