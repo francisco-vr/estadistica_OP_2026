@@ -241,6 +241,12 @@ Revisemos algún titular confuso o engañoso
 
 ---
 
+```{r echo=FALSE, fig.align='center', out.width="45%"}
+knitr::include_graphics("clase8_files/visualizacion_incorrecta.jpg")
+```
+
+---
+
 ## Reglas básicas: escritura con números
 
 .two-col[
@@ -344,7 +350,7 @@ Mejor, pero: ¿quién encuestó? ¿cuántos? ¿con qué pregunta exacta?
 .pull-left[
 
 
-```{r, echo=FALSE, out.width="120%", fig.align='center'}
+```{r, echo=FALSE, out.width="120%", fig.align='center',fig.cap="1"}
 knitr::include_graphics("clase8_files/tituloB&W.png")
 ```
 
@@ -352,7 +358,7 @@ knitr::include_graphics("clase8_files/tituloB&W.png")
 <br>
 
 
-```{r, echo=FALSE, out.width="120%", fig.align='center'}
+```{r, echo=FALSE, out.width="120%", fig.align='center', fig.cap="2"}
 knitr::include_graphics("clase8_files/noticia_elmer.png")
 
 ```
@@ -360,7 +366,7 @@ knitr::include_graphics("clase8_files/noticia_elmer.png")
 ]
 
 .pull-right[
-```{r, echo=FALSE, out.width="120%", fig.align='center'}
+```{r, echo=FALSE, out.width="120%", fig.align='center', fig.cap="3"}
 
 knitr::include_graphics("clase8_files/titular_exante.png")
 ```
@@ -368,7 +374,7 @@ knitr::include_graphics("clase8_files/titular_exante.png")
 <br>
 <br>
 
-```{r,echo=FALSE, out.width="120%", fig.align='center'}
+```{r,echo=FALSE, out.width="120%", fig.align='center', fig.cap="4"}
 knitr::include_graphics("clase8_files/titular_CHV.png")
 ```
 
@@ -401,6 +407,177 @@ knitr::include_graphics("clase8_files/titular_DF.png")
 
 .highlight-box[
 **En parejas (3 minutos):** Redacten DOS titulares diferentes para este dato. Uno "amarillista" y uno riguroso. ¿Qué cambia? ¿Por qué?
+]
+
+---
+
+### Normas para escribir buenos titulares con datos
+
+.two-col[
+.card.card-blue[
+### DEBE tener:
+- **Un solo dato central** — el más relevante, no el más impresionante
+- **Verbo activo** que indica dirección (*sube*, *cae*, *alcanza*, *supera*)
+- **Referencia temporal implícita o explícita** cuando el dato es volátil
+- **Fuente cuando es polémica o desconocida** (*"según Cadem"*, *"según CEP"*)
+- **Unidad de medida clara** — no mezclar puntos porcentuales con porcentajes
+- **Sujeto identificable** — ¿quiénes son los encuestados? Al menos en bajada
+]
+
+.card.card-red[
+### NO debe tener: 
+- Dos o más cifras que compiten entre sí (confunde al lector)
+- Porcentajes sin universo (*"el 60% quiere..."* — ¿el 60% de quién?)
+- Afirmaciones causales a partir de correlaciones (*"X provoca Y"*)
+- Números exactos que superan la precisión del instrumento (*"el 62,3% cree..."*)
+- Adjetivos que el dato no soporta (*"aplastante mayoría"* para un 54%)
+- Verbos que implican certeza donde hay estimación (*"es"* vs *"parece ser"*)
+]
+]
+
+.definition-box[
+**Regla de las tres preguntas:** Antes de publicar un titular con dato, pregúntate: ¿*quién* lo dice? ¿*cuándo* fue medido? ¿*a quiénes* representa? Si no puedes responder las tres en 10 segundos, el titular necesita más trabajo.
+]
+
+---
+
+### Titular vs. Cuerpo del texto: roles distintos, reglas distintas
+
+.three-col[
+.card.card-red[
+#### El titular
+**Función:** capturar atención y resumir la noticia en una idea
+
+**Reglas propias:**
+- Máximo un dato numérico
+- Sin decimales (redondear: *"casi 4 de cada 10"*)
+- Sin siglas ni tecnicismos
+- Sin margen de error (va en el cuerpo)
+- Sin nombre de la encuestadora si no es muy conocida
+- Tiempo presente, aunque el dato sea pasado (*"cae"*, no *"cayó"*)
+]
+
+.card.card-orange[
+#### La bajada o subtítulo
+**Función:** contextualizar sin desarrollar
+
+**Reglas propias:**
+- Puede agregar fuente y fecha
+- Puede dar un segundo dato si complementa
+- Puede aclarar el universo (*"entre mayores de 18 años"*)
+- No más de dos cifras
+- Evitar repetir exactamente el titular
+]
+
+.card.card-blue[
+####  El cuerpo del texto
+**Función:** explicar, contextualizar, matizar
+
+**Reglas propias:**
+- Aquí van todos los detalles: n, margen de error, metodología
+- Comparaciones históricas y contexto político
+- Citas textuales de la pregunta original
+- Datos que contradicen o matizan el titular
+- Fuente completa, fecha de campo, financiador
+- Limitaciones del estudio reconocidas
+]
+]
+
+.warning-box[
+️ **Error frecuente:** poner en el titular información que solo tiene sentido si ya leíste el cuerpo. El titular debe funcionar solo. El cuerpo no puede depender del titular para tener sentido.
+]
+
+---
+
+### Sensacionalismo
+
+.two-col[
+
+.highlight-box[
+
+_Una historia exagerada o la presentación sensacionalista de un supuesto escándalo_
+
+]
+
+
+.definition-box[
+«Cualquier gran problema al que nos enfrentemos... solo será comprendido por el hombre común, ocupado con sus tareas diarias, si se le golpea con fuerza y con frecuencia con los hechos. El tratamiento sensacionalista es la respuesta, independientemente de lo que prefieran los lectores sobrios y “superiores” de otras publicaciones» (Silverster Bolam, 1949)
+]
+
+]
+
+---
+
+.two-col[
+.card.card-red[
+### Técnicas del titular sensacionalista
+
+**1. El porcentaje base pequeña**  
+*"¡Aumentó un 300%!"* — de 1 a 4 casos
+
+**2. El subgrupo conveniente**  
+Publicar solo el resultado del grupo donde el dato es más extremo
+
+**3. La mayoría elástica**  
+*"La mayoría rechaza..."* para un 51% con ±4pp de margen
+
+**4. El superlativo sin comparación**  
+*"El peor índice de la historia"* — ¿qué historia? ¿desde cuándo?
+
+**5. La causalidad disfrazada**  
+*"Jóvenes adictos a pantallas tienen peor rendimiento"* — ¿causa o correlación?
+
+**6. La cifra desactualizada presentada como actual**  
+Usar datos de 2021 en 2025 sin decirlo
+]
+
+.card.card-blue[
+### El mismo dato, dos titulares
+
+**Dato:** En encuesta con n=600 y ±4pp, aprobación presidencial pasa de 32% a 35%
+
+.card.card-red[
+**Sensacionalista:**  
+*"¡Aprobación presidencial se dispara al alza!"*
+]
+
+.card.card-green[
+**Riguroso:**  
+*"Aprobación sube 3 puntos, aunque diferencia está dentro del margen de error"*
+]
+
+<br>
+
+Ambos usan el mismo dato. Uno informa. El otro construye una narrativa que el dato no soporta.
+]
+]
+---
+
+.pull-left[
+
+```{r, echo=FALSE, fig.align='center', fig.cap="1"}
+knitr::include_graphics("clase8_files/biobio_pulso_ciudadano.png")
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.cap="2"}
+knitr::include_graphics("clase8_files/exante_nueva.png")
+```
+
+
+]
+
+
+.pull-right[
+
+```{r, echo=FALSE, fig.align='center', fig.cap="3"}
+knitr::include_graphics("clase8_files/emol_nueva.png")
+```
+
+```{r, echo=FALSE, fig.align='center', fig.cap="4"}
+knitr::include_graphics("clase8_files/LT_nueva.png")
+```
+
 ]
 
 ---
