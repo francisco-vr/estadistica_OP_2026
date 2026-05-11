@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Psicología de los grupos — Clase 8: Visualización de Datos</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Francisco Villarroel Riquelme" />
+    <meta name="date" content="2026-05-11" />
+    <script src="clase9_files/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+&lt;style type="text/css"&gt;
+h1, h2, h3 { text-align: center; }
+
+.bg_portada {
+  position: relative;
+  z-index: 1;
+}
+.bg_portada::before {
+  content: "";
+  background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400');
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0px; right: 0px; bottom: 0px; left: 0px;
+  opacity: 0.15;
+  z-index: -1;
+}
+.definition-box {
+  background: #fdf2f3;
+  border-left: 5px solid #b01333;
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin: 10px 0;
+  font-size: 0.88em;
+}
+.highlight-box {
+  background: #fef9e7;
+  border: 2px solid #f39c12;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.info-box {
+  background: #eaf2fb;
+  border-left: 5px solid #085e9f;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.danger-box {
+  background: #fdf2f3;
+  border: 2px solid #b01333;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.success-box {
+  background: #eafaf1;
+  border: 2px solid #1e8449;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.three-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 2px 8px rgba(176,19,51,0.12);
+  font-size: 0.84em;
+}
+.card-red   { border-top: 4px solid #b01333; }
+.card-blue  { border-top: 4px solid #085e9f; }
+.card-green { border-top: 4px solid #1e8449; }
+.card-orange{ border-top: 4px solid #e67e22; }
+.badge {
+  display: inline-block;
+  background: #b01333;
+  color: white;
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 0.78em;
+  font-weight: bold;
+  margin-right: 6px;
+}
+.badge-blue  { background: #085e9f; }
+.badge-green { background: #1e8449; }
+.badge-orange{ background: #e67e22; }
+.step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  gap: 12px;
+}
+.step-num {
+  background: #b01333;
+  color: white;
+  border-radius: 50%;
+  width: 28px; height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+  font-size: 0.9em;
+}
+.footnote-small {
+  font-size: 0.68em;
+  color: #777;
+  border-top: 1px solid #DDD;
+  padding-top: 6px;
+  margin-top: 6px;
+}
+table {
+  font-size: 0.78em;
+  width: 100%;
+  border-collapse: collapse;
+}
+th {
+  background: #b01333;
+  color: white;
+  padding: 7px 10px;
+  text-align: left;
+}
+td { padding: 6px 10px; border-bottom: 1px solid #e0e0e0; }
+tr:nth-child(even) { background: #f5f7fa; }
+blockquote {
+  border-left: 4px solid #b01333;
+  background: #fdf2f3;
+  padding: 10px 16px;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: #333;
+  margin: 10px 0;
+  font-size: 0.90em;
+}
+.timer-box {
+  background: #1a1a2e;
+  color: #e0e0e0;
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 0.85em;
+  border-left: 5px solid #f39c12;
+}
+&lt;/style&gt;
+
+---
+class: left, middle, bg_portada
+
+# Visualización de Datos
+## Estadística y Opinión Pública — Clase 9
+
+
+**Francisco Villarroel Riquelme** | CICS — UDD | 2026-05-11
+
+---
+class: inverse, center, middle
+
+# ¿Por qué visualizar datos?
+
+---
+
+## El cerebro piensa en imágenes
+
+.two-col[
+.definition-box[
+**Visualizar es comunicar**
+
+Un gráfico bien hecho permite transmitir en segundos lo que una tabla de números tarda minutos en revelar.
+
+
+]
+
+.highlight-box[
+**¿Por qué funciona?**
+
+- El cerebro procesa ~80% de la información a través de los ojos
+- Escuchamos algo → recordamos 10% tres días después
+- Escuchamos **+ imagen** → recordamos 65% tres días después *(Forrester Research)*
+- Artículos con buena visualización atraen significativamente **más lectores** y aumentan el tiempo en la página *(NYT, The Guardian, Die Zeit)*
+]
+]
+
+&lt;br&gt;
+
+.danger-box[
+⚠️ **El reverso**: un gráfico mal hecho puede **engañar con la misma velocidad** con que uno bueno ilumina. La velocidad de procesamiento visual es una vulnerabilidad, no solo una ventaja.
+]
+
+---
+
+## El Cuarteto de Anscombe: visualizar siempre
+
+&lt;img src="clase9_files/figure-html/anscombe-1.png" width="100%" /&gt;
+
+.footnote-small[
+**Lección central**: los estadísticos descriptivos pueden ser idénticos aunque los datos sean completamente diferentes. **Siempre graficar antes de concluir.**
+]
+
+
+---
+class: inverse, center, middle
+
+# BLOQUE 1
+# Tipos de gráficos por variable y cómo leerlos
+
+---
+
+## La regla de oro: la variable manda el gráfico
+
+.two-col[
+.definition-box[
+**Escala de medicion -&gt; tipo de grafico**
+
+El tipo de variable determina que operaciones estadisticas son validas y, por lo tanto, que visualizaciones son apropiadas.
+
+Estudios como el **CEP** o **CADEM** trabajan con los cuatro tipos: preguntas de identificacion (nominal), escalas de aprobacion (ordinal), y datos demograficos como edad o ingresos (cuantitativa).
+]
+
+| Escala | Ejemplo CEP/CADEM | Graficos adecuados |
+|--------|---------|-------------------|
+| **Nominal** | Votacion, coalicion, religion | Barras, torta |
+| **Ordinal** | Aprobacion presidente (escala), confianza institucional | Barras apiladas, divergente |
+| **Cuantitativa** | Edad, ingreso, indice de confianza | Histograma, boxplot, violin, IC |
+]
+
+&lt;br&gt;
+
+.danger-box[
+[!] **Error clasico n 1**: usar grafico de lineas para categorias nominales (implica continuidad donde no la hay).
+
+[!] **Error clasico n 2**: reportar solo el promedio de una escala ordinal sin mostrar la distribucion completa.
+]
+
+---
+class: inverse, center, middle
+
+# Variables Nominales (categoricas)
+
+---
+
+### Nominal 1: Grafico de barras — el caballo de batalla
+
+&lt;img src="clase9_files/figure-html/barras_cep-1.png" width="100%" /&gt;
+
+.footnote-small[
+**Como leerlo:** (1) Identifica la categoria modal (la mas frecuente). (2) Evalua si las diferencias son sustantivas: 39% vs 11% es una brecha grande; 18% vs 14% no lo es. (3) Ojo al denominador: ?incluye NS/NR? Cambiar el denominador cambia todos los porcentajes. (4) El orden de mayor a menor facilita la lectura — pero no implica que las categorias tengan ese orden inherente.
+]
+
+---
+
+### Nominal 2: Grafico de torta — cuando usarlo y cuando no
+
+&lt;img src="clase9_files/figure-html/torta_comparada-1.png" width="100%" /&gt;
+
+.footnote-small[
+**La torta es util con 2-3 categorias** donde importa la proporcion del todo (ej: aprueba/desaprueba/NS). Con 4+ categorias el ojo no puede comparar angulos y la torta falla — usar barras. Por eso las encuestas modernas como CADEM usan la torta solo para la pregunta de aprobacion binaria, y barras para todo lo demas.
+]
+
+---
+
+### Nominal 3: Evolucion temporal de categorias — lineas con puntos
+
+&lt;img src="clase9_files/figure-html/aprobacion_lineas-1.png" width="100%" /&gt;
+
+.footnote-small[
+**Como leerlo:** (1) El eje X es tiempo -&gt; la linea conecta mediciones en distintos momentos, lo que SI tiene sentido aunque "aprueba" sea nominal, porque estamos graficando el **porcentaje** (variable cuantitativa) a lo largo del tiempo. (2) ?Hay cruce de lineas (aprobacion supera desaprobacion o viceversa)? Ese cruce es el evento mas relevante. (3) Evalua la **tendencia**: ?es sostenida o hay rebotes? (4) Considera el margen de error muestral (~3%): diferencias menores a ese margen no son interpretables.
+]
+
+---
+class: inverse, center, middle
+
+# Variables Ordinales
+
+---
+
+### Ordinal 1: Barras apiladas al 100% — el estandar para Likert
+
+&lt;img src="clase9_files/figure-html/likert-1.png" width="100%" /&gt;
+
+.footnote-small[
+**Como leerlo:** (1) La linea punteada en 50% es el punto de equilibrio: instituciones cuya barra azul no llega al 50% tienen mayoria de desconfianza. (2) Compara el **ancho del rojo oscuro** entre instituciones — indica la intensidad del rechazo, no solo su existencia. (3) Instituciones con mucho naranja + mucho celeste = alta polarizacion de opiniones.
+]
+
+---
+
+### Ordinal 2: Barras divergentes — centradas en el neutro
+
+&lt;img src="clase9_files/figure-html/divergente-1.png" width="100%" /&gt;
+
+.footnote-small[
+**Ventaja sobre barras apiladas**: la linea cero actua como ancla visual — inmediatamente se ve que instituciones tienen mayoria de desconfianza (barra se extiende mas a la izquierda) y cuales de confianza. Facilita la comparacion entre instituciones porque todas se leen desde el mismo eje central.
+]
+
+---
+class: inverse, center, middle
+
+# Variables Cuantitativas
+
+---
+
+### Cuantitativa 1: Histograma — la distribucion completa
+
+&lt;img src="clase9_files/figure-html/histograma-1.png" width="100%" /&gt;
+
+.footnote-small[
+**Como leerlo:** (1) **Forma**: ¿simetrica, sesgada, bimodal? La zona rural muestra sesgo hacia edades mayores — informacion clave sobre a quien se esta encuestando. (2) **Solapamiento**: si las distribuciones se solapan mucho, las muestras son similares en esa variable. (3) **Pro**: muestra toda la distribucion. **Contra**: requiere definir el numero de bins (barras); bins muy anchos ocultan variabilidad, muy estrechos generan ruido.
+]
+
+---
+
+### Cuantitativa 2: Grafico de intervalo de confianza — el favorito de las encuestas
+
+&lt;img src="clase9_files/figure-html/ic_plot-1.png" width="100%" /&gt;
+
+.footnote-small[
+**Como leerlo:** (1) El **punto** es la media muestral; las **barras** son el IC 95% (rango donde cae el verdadero valor con 95% de confianza). (2) Si los IC de dos grupos **no se solapan**, la diferencia es estadisticamente significativa. (3) IC ancho = muestra pequena o alta variabilidad. (4) **Pro**: comunica incertidumbre directamente. **Contra**: oculta la forma de la distribucion — no sabemos si es bimodal o simetrica.
+]
+
+---
+
+### Cuantitativa 3: Boxplot — la distribucion completa con comparacion
+
+&lt;img src="clase9_files/figure-html/boxplot-1.png" width="100%" /&gt;
+
+.footnote-small[
+**Anatomia:** Linea central = **mediana**. Caja = **rango intercuartilico** (50% central). Bigotes = 1.5xIQR. Puntos = valores atipicos. **Como leerlo:** (1) ?Las cajas se solapan? Si si, diferencias modestas. (2) ?La mediana de un grupo esta fuera de la caja del otro? Diferencia mas clara. **Pro**: muestra mediana, dispersion y outliers simultaneamente. **Contra**: oculta si la distribucion es bimodal; con muestras pequenas puede ser enganhoso.
+]
+
+---
+
+### Cuantitativa 4: Grafico de violin — lo mejor de histograma y boxplot
+
+&lt;img src="clase9_files/figure-html/violin-1.png" width="100%" /&gt;
+
+.footnote-small[
+**Como leerlo:** El **ancho** del violin en cada punto indica cuantos casos hay en esa edad — zonas anchas = muchos casos. El boxplot interno mantiene la lectura de mediana e IQR. **Pro**: revela bimodalidad y forma que el boxplot oculta. **Contra**: requiere muestras grandes (n&gt;50 por grupo); con n pequeno el violin es ruido visual. Nota: el violin de "Derecha" es mas ancho a edades mayores — eso no se veia en el boxplot.
+]
+
+---
+
+### Comparacion de graficos para variables cuantitativas
+
+| Grafico | Muestra | Ideal para | Limitacion |
+|---------|---------|-----------|-----------|
+| **Histograma** | Forma completa de la distribucion | Una variable, explorar distribucion | Dificil comparar muchos grupos |
+| **IC + punto** | Media + incertidumbre muestral | Comparar grupos, comunicar resultados | Oculta forma de la distribucion |
+| **Boxplot** | Mediana, IQR, outliers | Comparar grupos, detectar asimetria | Oculta bimodalidad |
+| **Violin** | Densidad completa + boxplot interno | Comparar grupos con muestra grande | Engana con n pequeno |
+
+.highlight-box[
+**Regla practica en encuestas tipo CEP/CADEM**: para resultados publicados se usan IC + punto (comunica incertidumbre). Para analisis exploratorio interno se prefiere violin o boxplot. El histograma es el primer grafico que se hace con cualquier variable cuantitativa nueva.
+]
+
+---
+
+### Resumen: que grafico uso?
+
+| Quiero mostrar... | Variable(s) | Grafico ideal | Evitar |
+|-------------------|-------------|--------------|--------|
+| Frecuencia de categorias | Nominal | **Barras ordenadas** | Torta con &gt;3 categorias |
+| Proporcion simple (aprueba/no) | Nominal 2-3 cat. | **Torta simple** | Torta 3D o explotada |
+| Evolucion de porcentaje en el tiempo | Nominal + tiempo | **Lineas + puntos** | Barras agrupadas |
+| Actitudes / Likert / confianza | Ordinal | **Barras apiladas 100%** | Promedios solos |
+| Actitudes con comparacion clara | Ordinal | **Barras divergentes** | Barras apiladas sin centrar |
+| Distribucion de una continua | Cuantitativa | **Histograma + densidad** | Solo media |
+| Comparar grupos (con incertidumbre) | Cuantitativa | **IC + punto** | Barras sin error |
+| Comparar grupos (con forma) | Cuantitativa n&gt;50 | **Violin + boxplot interno** | Solo boxplot |
+
+---
+class: inverse, center, middle
+
+# EJERCICIO 1
+## Interpretacion individual (10 min)
+
+---
+
+### Ejercicio 1: Lee y responde
+
+
+.pull-left[
+
+&lt;img src="clase9_files/figure-html/ejercicio1-1.png" width="100%" /&gt;
+
+]
+
+.pull-right[
+
+
+.timer-box[
+**[timer] 10 minutos — responde individualmente en papel:**
+1. ?Que tipo de variable es "GSE" y que tipo de variable es "aprobacion"?
+2. ?En que GSE hay mayor aprobacion? ?Y mayor desaprobacion?
+3. ?Se puede decir que hay una tendencia sistematica segun GSE? ?Que patron observas?
+4. ?Que informacion adicional necesitarias para saber si estas diferencias son estadisticamente significativas?
+]
+]
+
+---
+
+### Discusion Ejercicio 1: respuestas esperadas
+
+.three-col[
+.card.card-red[
+**Pregunta 1**
+
+GSE = variable **ordinal** (tiene orden: ABC1 &gt; C2 &gt; C3 &gt; D &gt; E, aunque es tratada a veces como nominal).
+
+Aprobacion = variable **nominal** (categorias sin orden intrinseco).
+]
+.card.card-blue[
+**Pregunta 2**
+
+Mayor aprobacion: **ABC1** (38%).
+
+Mayor desaprobacion: **E** (68%).
+
+El NS/NR es constante al 10% — puede indicar que la pregunta fue igual de clara en todos los grupos, o que ese porcentaje no quiso responder independientemente del GSE.
+]
+.card.card-green[
+**Preguntas 3 y 4**
+
+Hay un patron claro: a medida que baja el GSE, baja la aprobacion y sube la desaprobacion. Para testear significancia se necesitarian IC o un test de chi-cuadrado de independencia. Tambien importa conocer el n por subgrupo.
+]
+]
+
+&lt;br&gt;
+
+.highlight-box[
+**Punto clave**: un patron sistematico y monotono (siempre en la misma direccion) es mas informativo que una diferencia grande entre dos grupos aislados. Eso es lo que los graficos de barras apiladas permiten ver de un vistazo.
+]
+
+---
+class: inverse, center, middle
+
+# EJERCICIO 2
+## Interpretacion en pares (15 min)
+
+---
+
+### Ejercicio 2: Elige el grafico y justifica
+
+.two-col[
+.info-box[
+**Situacion A**
+
+El equipo de analisis de CEP tiene los siguientes datos de 1.200 encuestados:
+
+- Confianza en el gobierno (escala 1-4: mucha desconfianza a mucha confianza)
+- Region del pais (15 regiones)
+- Edad del encuestado (anos)
+
+**Pregunta**: ?La distribucion de confianza en el gobierno difiere entre la Region Metropolitana y las demas regiones?
+
+-&gt; ?Que grafico(s) usarias? ?Por que descartaste los otros?
+]
+
+.info-box[
+**Situacion B**
+
+CADEM publica semanalmente la aprobacion presidencial. Tienes 3 anos de datos semanales (156 mediciones), con el porcentaje que aprueba, desaprueba y NS/NR cada semana.
+
+**Pregunta**: ?Como ha evolucionado la aprobacion y la desaprobacion desde el inicio del mandato?
+
+-&gt; ?Que grafico usarias? ?Por que NO usarias barras agrupadas para esta serie?
+]
+]
+
+.timer-box[
+**[timer] 15 minutos — en pares:** (1) Elige el grafico para cada situacion. (2) Justifica en 2 lineas por que descartaste al menos 2 alternativas. (3) ?Que iria en cada eje?
+]
+
+---
+
+### Discusion Ejercicio 2: respuestas esperadas
+
+.two-col[
+.success-box[
+**Situacion A -&gt; Barras divergentes + violin/boxplot**
+
+La confianza (ordinal 1-4) entre dos grupos -&gt; barras divergentes o apiladas 100%.
+
+Si se quiere ver la distribucion de edad por grupo de region -&gt; violin o boxplot.
+
+**Descartados**: lineas (no hay serie temporal), histograma sin separacion por grupo no responde la pregunta, torta no permite comparar dos grupos simultaneamente.
+]
+
+.success-box[
+**Situacion B -&gt; Lineas + puntos**
+
+Serie temporal de porcentajes -&gt; grafico de lineas, una por categoria (aprueba, desaprueba, NS/NR).
+
+**Por que NO barras agrupadas**: con 156 semanas, las barras se vuelven ilegibles (cada semana tendria 3 barras microscopic). Las lineas permiten ver la tendencia y el cruce entre aprobacion y desaprobacion claramente.
+
+**Detalle clave**: el cruce donde desaprobacion supera a aprobacion es el evento narrativo central de cualquier analisis de popularidad presidencial.
+]
+]
+
+---
+class: center, middle
+
+##  PAUSA — 10 minutos
+
+
+---
+class: inverse, center, middle
+
+# BLOQUE 2
+# Errores comunes en visualización de datos
+
+---
+
+### Los 6 errores más frecuentes — panorama
+
+.three-col[
+.card.card-red[
+**Errores de estructura**
+
+- Eje Y truncado
+- Escala no lineal sin aviso
+- Áreas no proporcionales
+- Gráfico 3D innecesario
+]
+.card.card-blue[
+**Errores de interpretación**
+
+- Correlación → causalidad
+- Ignorar tamaño muestral
+- Media sin distribución
+- Tendencia sin grupo control
+]
+.card.card-green[
+**Errores de datos**
+
+- Cherry picking temporal
+- Denominator neglect (ignorar el denominador)
+- Mezclar unidades distintas
+- No verificar la fuente original
+]
+]
+
+&lt;br&gt;
+
+.highlight-box[
+&gt; *"Los errores numéricos pueden tener un efecto cascada en una investigación: una cifra incorrecta puede invalidar tendencias, conclusiones y la credibilidad del medio."* — Rowan Philp, Global Investigative Journalism Network (GIJN, 2023)
+]
+
+---
+
+### Error 1: Eje Y truncado
+
+.two-col[
+&lt;img src="clase9_files/figure-html/eje_truncado_malo-1.png" width="100%" /&gt;
+
+&lt;img src="clase9_files/figure-html/eje_correcto-1.png" width="100%" /&gt;
+]
+
+.highlight-box[
+El gráfico truncado hace que el Partido A parezca casi **duplicar** al C. El correcto muestra que la diferencia es de **1.5 puntos porcentuales** — prácticamente un empate técnico.
+
+**Cuándo truncar es legítimo**: en series temporales con variaciones pequeñas en un rango alto (ej. temperatura corporal entre 36°C y 42°C). La clave: **advertirlo claramente** con una ruptura visible en el eje.
+]
+
+---
+
+### Error 2: Correlación ≠ Causalidad
+
+.two-col[
+&lt;img src="clase9_files/figure-html/correlacion_falsa-1.png" width="100%" /&gt;
+
+.definition-box[
+**La variable confundente invisible**
+
+Ambas variables aumentan en verano por el **calor**, no porque una cause la otra. Esto se llama **correlación espuria**.
+
+**En psicología de grupos**: encontrar que grupos con mayor cohesión tienen mejor desempeño *no* prueba que la cohesión *cause* el desempeño. Puede que ambas sean causadas por una tercera variable (calidad del liderazgo, selección de miembros, recursos disponibles).
+
+&gt; Siempre preguntar: ¿hay una tercera variable que explique ambas?
+]
+]
+
+---
+
+### Error 3: La media no lo dice todo
+
+&lt;img src="clase9_files/figure-html/media_problema-1.png" width="100%" /&gt;
+
+.danger-box[
+⚠️ En datos **bimodales**, reportar la media es gravemente engañoso: nadie tiene el valor promedio, existen dos subgrupos distintos. Siempre complementar con histograma, mediana y desviación estándar. En escalas Likert, la media "3.2" puede encubrir que la mitad responde 1 y la otra mitad responde 5.
+]
+
+---
+
+### Error 4: Tendencia temporal sin grupo control
+
+&lt;img src="clase9_files/figure-html/tendencia_falsa-1.png" width="100%" /&gt;
+
+.danger-box[
+ Sin grupo control, la mejora puede deberse a: la intervención, el paso del tiempo, la maduración natural del grupo, efectos de práctica en el instrumento, o eventos externos simultáneos. **Correlación temporal ≠ efecto causal.**
+]
+
+---
+
+### Error 5: Ignorar el tamaño muestral
+
+&lt;img src="clase9_files/figure-html/tamano_muestral-1.png" width="100%" /&gt;
+
+.highlight-box[
+Con n = 10, los intervalos de confianza son tan amplios que una correlación real de .35 puede verse visualmente como .80 o como .00. Un gráfico sin indicación del n puede ser intencionalmente engañoso. **Siempre reportar n y mostrar intervalos de confianza.**
+]
+
+---
+
+### Error 6: Cherry picking temporal
+
+&lt;img src="clase9_files/figure-html/cherry-1.png" width="100%" /&gt;
+
+.footnote-small[
+Seleccionar el período que confirma la narrativa deseada es una de las manipulaciones más comunes en política y economía. La pregunta correcta siempre es: **¿cuál es la tendencia en el período más largo disponible?**
+]
+
+---
+
+
+
+&lt;img src="https://towardsdatascience.com/wp-content/uploads/2024/04/1iBPtwXc8gaN6a8bqR-P3nA.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class:middle, center
+
+
+&lt;img src="https://towardsdatascience.com/wp-content/uploads/2024/04/1hPZ77T2RDD-AN-PUGhFfYA.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class:middle, center
+
+
+&lt;img src="https://towardsdatascience.com/wp-content/uploads/2024/04/10TGraurI1JVtnHff6FogTg.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+class:middle, center
+
+
+&lt;img src="https://towardsdatascience.com/wp-content/uploads/2024/04/1x3FqZ12bo0oGOLL0EF-GXA.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class:middle, center
+
+
+&lt;img src="https://towardsdatascience.com/wp-content/uploads/2024/04/12a0O6eIPHs47mKB7mQzVdw.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class:middle, center
+
+
+&lt;img src="https://towardsdatascience.com/wp-content/uploads/2024/04/1QMwqBEnrDykVm0cYlypU6w.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class:middle, center
+
+
+&lt;img src="https://towardsdatascience.com/wp-content/uploads/2024/04/1QMwqBEnrDykVm0cYlypU6w.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class:middle, center
+
+
+&lt;img src="https://towardsdatascience.com/wp-content/uploads/2024/04/1QMwqBEnrDykVm0cYlypU6w.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class:middle, center
+
+
+&lt;img src="clase9_files/cadem1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class:middle, center
+
+
+&lt;img src="clase9_files/cadem2.png" width="80%" style="display: block; margin: auto;" /&gt;
+---
+class:middle, center
+
+
+&lt;img src="clase9_files/criteria1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: inverse, center, middle
+
+# EJERCICIO 3
+## Detecta los errores (15 min)
+
+---
+
+### Ejercicio 3: Auditoría de gráficos
+
+&lt;img src="clase9_files/figure-html/ejercicio3-1.png" width="100%" /&gt;
+
+.timer-box[
+**⏱ 15 minutos — en grupos de 3:**
+
+**Gráfico izquierda**: (1) ¿Qué error de diseño tiene el eje? (2) ¿Qué información falta para evaluar el titular? (3) ¿El titular implica causalidad? ¿Es válido con este diseño?
+
+**Gráfico derecha**: (1) ¿Por qué este tipo de gráfico es inadecuado para estos datos? (2) ¿Qué alternativa usarías? (3) ¿Qué conclusión permite o no permite este gráfico?
+]
+
+---
+
+### Discusión Ejercicio 3: respuestas esperadas
+
+.two-col[
+.danger-box[
+**Gráfico izquierda — errores identificados:**
+
+1. **Eje Y truncado** (71.5 a 75): visualmente parece una subida dramática, pero son 2.5 puntos en una escala implícita de 0-100 (= 2.5%).
+2. **Sin n**: no sabemos si hay 10 o 10.000 participantes.
+3. **Sin grupo control**: la mejora puede ser maduración natural o sesgo de memoria.
+4. **Titular causal** ("aumentó") con diseño que solo muestra tendencia. Sin aleatorización, no hay causalidad demostrable.
+]
+
+.danger-box[
+**Gráfico derecha — errores identificados:**
+
+1. **Torta con 6 categorías similares**: el ojo humano no puede comparar ángulos de 23% vs 21% vs 18%.
+2. **Alternativa correcta**: barras horizontales ordenadas de mayor a menor — comparación inmediata.
+3. Las categorías están tan cerca en porcentaje que el gráfico no permite concluir cuál es la estrategia predominante.
+4. ¿El 6% de "otro" fue colapsado de varias categorías? Falta transparencia en la construcción de categorías.
+]
+]
+
+---
+class: inverse, center, middle
+
+# Parte 3
+# Cómo los medios manipulan datos a través de la visualización
+
+---
+
+### El gráfico como argumento político
+
+.two-col[
+.definition-box[
+**Visualización y narrativa mediática**
+
+Los gráficos no son neutrales: son argumentos visuales. Cada decisión de diseño — qué mostrar, qué omitir, desde dónde empezar el eje — construye una historia.
+
+&gt; *"La visualización de datos ofrece la tentadora oportunidad de contar historias impulsadas por los hechos, no por el fanatismo."* — Sarah Cohen, periodista Pulitzer
+
+El problema: esa promesa puede invertirse. Los mismos datos, graficados de forma diferente, pueden contar historias opuestas.
+]
+
+.highlight-box[
+**Por qué los medios manipulan visualmente**
+
+- Captura de atención en entornos de alta competencia
+- Confirmar sesgos de la audiencia (aumenta engagement)
+- Apoyar una agenda editorial o política
+- **No siempre es intencional**: el error y el descuido producen el mismo efecto que la manipulación deliberada
+
+→ El resultado es el mismo para el lector desinformado
+]
+]
+
+---
+
+### Técnica 1: El eje truncado en política
+
+.two-col[
+&lt;img src="clase9_files/figure-html/politica_truncado-1.png" width="100%" /&gt;
+
+&lt;img src="clase9_files/figure-html/politica_correcto-1.png" width="100%" /&gt;
+]
+
+.footnote-small[
+El gráfico truncado hace que el aumento de 7.1% a 11.3% parezca una catástrofe que duplica el valor. El gráfico correcto muestra un aumento real pero contextualizado en la escala completa — el pico fue serio pero no dobló la tasa desde cero.
+]
+
+---
+
+### Técnica 2: Escala logarítmica sin advertencia
+
+&lt;img src="clase9_files/figure-html/log_media-1.png" width="100%" /&gt;
+
+.highlight-box[
+La escala logarítmica es técnicamente correcta para mostrar tasas de crecimiento, pero **usarla sin advertirlo** explota que el público general no la reconoce. Una línea recta en escala log significa crecimiento *porcentual* constante, no crecimiento absoluto constante. Los medios usan esto para hacer que el crecimiento parezca más o menos dramático según la narrativa.
+]
+
+---
+
+### Técnica 3: Denominator neglect — ignorar el denominador
+
+.two-col[
+.danger-box[
+**Titular real (ficticio pero frecuente):**
+
+*"Los delitos cometidos por inmigrantes aumentaron un 40% en los últimos 3 años"*
+
+**Lo que no dice el gráfico de barras que lo acompaña:**
+- La población inmigrante creció un 80% en el mismo período
+- La **tasa** de delitos por inmigrante disminuyó
+- El titular es técnicamente verdadero pero estadísticamente engañoso
+]
+
+.definition-box[
+**Denominator neglect** (Kahneman, 2011)
+
+El cerebro procesa números absolutos con más facilidad que tasas o proporciones. Los medios explotan esto mostrando **numeradores** (cantidad de casos) sin sus **denominadores** (población de referencia).
+
+**Ejemplos en psicología grupal**:
+- "El 60% de los conflictos grupales ocurren en grupos virtuales" — ¿qué porcentaje del total son grupos virtuales?
+- "Aumentó el número de grupos con liderazgo femenino" — ¿creció el número total de grupos?
+]
+]
+
+---
+
+### Técnica 4: Gráficos de área engañosos
+
+.two-col[
+&lt;img src="clase9_files/figure-html/area_mal2-1.png" width="100%" /&gt;
+
+.definition-box[
+**La regla del área**
+
+En gráficos de burbujas o círculos: el **área** visible debe ser proporcional al valor, no el radio ni el diámetro.
+
+Si radio ∝ valor → área ∝ valor²
+
+Un país con el doble de PIB tiene radio doble, pero **área cuádruple**. El ojo percibe el área, no el radio → sobreestimación sistemática de diferencias.
+
+**Cómo detectarlo**: revisa si la leyenda indica cómo se escalan las figuras. Si no lo dice, sospecha.
+]
+]
+
+---
+
+### Técnica 5: El gráfico sin fuente ni metodología
+
+.two-col[
+.danger-box[
+**Señales de alarma en cualquier gráfico mediático**
+
+☐ No indica la fuente de los datos
+
+☐ No indica el tamaño muestral (n)
+
+☐ No especifica el período temporal exacto
+
+☐ No define las variables ("¿qué mide exactamente 'desempeño'?")
+
+☐ El titular va más allá de lo que muestran los datos
+
+☐ No hay intervalos de confianza o márgenes de error
+
+☐ La conclusión implica causalidad con diseño correlacional
+]
+
+.info-box[
+**La pregunta más poderosa**
+
+&gt; *"¿Qué información NO se está mostrando?"*
+
+— Alberto Cairo, *The Truthful Art* (2016)
+
+Antes de aceptar la conclusión de cualquier gráfico, pregunta:
+
+- ¿Qué períodos temporales no se muestran?
+- ¿Qué grupos de comparación fueron excluidos?
+- ¿Qué escala se eligió y por qué?
+- ¿Quién financió el estudio que produce estos datos?
+]
+]
+
+---
+
+### Lista de verificación: auditoría crítica de gráficos
+
+.two-col[
+.definition-box[
+**Estructura visual**
+
+☐ ¿El eje Y parte en cero (o se justifica y advierte el truncamiento)?
+
+☐ ¿Los ejes tienen etiquetas y unidades claras?
+
+☐ ¿La escala es lineal o logarítmica? ¿Está advertida?
+
+☐ ¿Las áreas/volúmenes son proporcionales al valor?
+
+☐ ¿El tipo de gráfico es adecuado para el tipo de variable?
+]
+
+.info-box[
+**Contenido e interpretación**
+
+☐ ¿Se muestra el rango completo temporal (no cherry picking)?
+
+☐ ¿Se incluye el denominador (tasas vs. valores absolutos)?
+
+☐ ¿Se indica el n y los intervalos de confianza?
+
+☐ ¿El titular es consistente con lo que muestran los datos?
+
+☐ ¿Se indica la fuente original y la metodología de recolección?
+
+☐ ¿La conclusión implica causalidad? ¿Tiene respaldo en el diseño?
+]
+]
+
+---
+class: inverse, center, middle
+
+# EJERCICIO 4
+## Análisis crítico de medios (15 min)
+
+---
+
+### Ejercicio 4: Gráfico mediático real
+
+&lt;img src="clase9_files/figure-html/ejercicio4-1.png" width="100%" /&gt;
+
+.timer-box[
+**⏱ 15 minutos — en grupos de 3 a 4:**
+
+(1) Lista todos los problemas de diseño que detectas. (2) ¿El titular está justificado por los datos mostrados? ¿Por qué sí o no? (3) ¿Qué información adicional pedirías antes de publicar este gráfico como periodista? (4) Redacta un titular alternativo, más honesto con los datos que se muestran.
+]
+
+---
+
+### Discusión Ejercicio 4: respuestas esperadas
+
+.three-col[
+.card.card-red[
+**Problemas de diseño**
+
+- Eje Y desde 61 (no desde 0): la subida parece un aumento enorme visualmente
+- Sin tamaño muestral (¿cuántas organizaciones?)
+- Sin definición del índice (¿qué mide exactamente?)
+- Sin intervalos de confianza
+- Sin fuente primaria accesible
+]
+.card.card-blue[
+**Problema con el titular**
+
+- Implica **causalidad** ("disparó") pero el gráfico solo muestra una **tendencia temporal**
+- No hay grupo control sin el programa
+- El programa X se implementó, ¿cuándo exactamente? No está marcado en el gráfico
+- La variación es 62.3 → 66.8 = 4.5 puntos, moderada en escala real
+]
+.card.card-green[
+**Titular alternativo honesto**
+
+*"El índice de cohesión organizacional aumentó 4.5 puntos entre 2018 y 2023; estudios adicionales son necesarios para evaluar el rol del programa X"*
+
+Información adicional mínima: n, definición del índice, fecha de implementación del programa, si hay grupo de comparación.
+]
+]
+
+---
+
+### Cierre: el gráfico como responsabilidad
+
+.two-col[
+.definition-box[
+**Lo que aprendimos hoy**
+
+1. El tipo de variable determina el gráfico adecuado
+2. Cada gráfico tiene un protocolo de lectura específico
+3. Los errores más comunes son estructurales (eje truncado, n ausente) y de interpretación (correlación → causalidad)
+4. Los medios explotan vulnerabilidades cognitivas del procesamiento visual
+5. La pregunta más poderosa es siempre: **¿qué no se está mostrando?**
+]
+
+.highlight-box[
+**Reflexión final**
+
+&gt; *"Los gráficos son argumentos visuales. Como cualquier argumento, pueden ser honestos, descuidados o deliberadamente engañosos. La diferencia está en aprender a leerlos críticamente."*
+
+La alfabetización visual no es solo una habilidad técnica: es una competencia **ciudadana** y **ética** en un entorno saturado de información.
+]
+]
+
+---
+
+## Resumen: gráfico correcto según situación
+
+| Situación | Gráfico recomendado | Evitar |
+|-----------|--------------------|----|
+| Distribución de una variable continua | Histograma + densidad | Gráfico de líneas |
+| Comparar grupos (variable continua) | Boxplot con jitter | Solo barras con media |
+| Frecuencia de categorías | Barras ordenadas | Torta con &gt;4 categorías |
+| Relación entre dos continuas | Dispersión + regresión | Línea sin puntos |
+| Evolución temporal | Líneas con puntos | Barras para series largas |
+| Datos Likert / ordinales | Barras apiladas 100% | Promedios solos |
+| Parte de un todo (&lt;4 categorías) | Torta simple | Torta 3D |
+
+---
+class: center, middle, inverse
+
+# Fin de la Clase 8
+
+**Próxima clase:** Análisis de contenido y métodos mixtos
+
+📌 **Lecturas recomendadas:**
+Cairo (2016) *The Truthful Art*, cap. 2-3 · Tufte (2001) *The Visual Display of Quantitative Information*, cap. 1
+
+**Francisco Villarroel Riquelme** | 2026-05-11
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "slideNumberFormat": "%current%",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "ratio": "16:9",
+  "countIncrementalSlides": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
